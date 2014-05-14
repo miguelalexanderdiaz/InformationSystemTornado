@@ -42,21 +42,19 @@
                     <p:layoutUnit position="center">
 
 
-                        <p:growl id="growl" showDetail="true"/>
-                        
-                        
-                        
-                        
+                        <p:growl id="growl" />
+
+
                         <h:panelGrid columns="2">
-                             <h:outputLabel for="name" value="Nombre:" style="font-weight:bold"/>
-                             <p:inputText id="name" value="#{prueba.name}"  label="Nombre">
-                                <f:validateLength maximum="20" minimum="3"/>
-                            </p:inputText>
-                            
+                            <h:outputLabel for="name" value="Nombre:" style="font-weight:bold"/>
+                            <p:inputText id="name" value="#{saveUser.name}"  label="Nombre"/>
+
+                            <h:outputLabel for="password" value="Contraseña:" style="font-weight:bold"/>
+                            <p:password id="password" value="#{saveUser.password}" label="Contraseña" />
                         </h:panelGrid>
-                        
-                        
-                        <p:commandButton value="Click me" actionListener="#{prueba.mostrarMensaje(actionEvent)}" update="growl"/>
+
+
+                        <p:commandButton value="Guardar Usuario" actionListener="#{saveUser.saveUser(actionEvent)}" update="growl"/>
 
 
 

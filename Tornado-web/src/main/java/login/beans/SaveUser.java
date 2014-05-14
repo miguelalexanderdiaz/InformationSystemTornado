@@ -7,6 +7,7 @@ package login.beans;
 
 import edu.unal.dto.UserDTO;
 import edu.unal.factory.ServiceFactory;
+import edu.unal.helper.HashSHA256;
 import edu.unal.services.UserService;
 import java.awt.event.ActionEvent;
 import javax.faces.application.FacesMessage;
@@ -20,30 +21,23 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @RequestScoped
-public class Prueba {
+public class SaveUser {
 
 
     private final UserService userService;
     private String name;
+    private String password;
 
-    public Prueba() {
+    public SaveUser() {
         ServiceFactory sf=ServiceFactory.getInstance();
         this.userService=sf.getUserService();
     }
     
-    
-    
-
-
-
-    public void mostrarMensaje(ActionEvent actionEvent) {
+    public void saveUser(ActionEvent actionEvent) {
         FacesContext context = FacesContext.getCurrentInstance();
-        UserDTO dto = new UserDTO("fulanito", "perez");
+        UserDTO dto = new UserDTO(name, password);
         userService.save(dto);
         context.addMessage(null, new FacesMessage("Almacenado en la base de datos"+dto.toString()));
-        System.out.println(dto.toString());
-        System.out.println(dto.getUserName() + " "+ dto.getPassword());
-
     }
 
     public String getName() {
@@ -53,6 +47,18 @@ public class Prueba {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        HashSHA256 hash=new HashSHA256();
+        this.password = hash.getHash(password);
+    }
+    
+    
+    
     
     
 
