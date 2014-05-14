@@ -18,7 +18,7 @@ import edu.unal.model.User;
  *
  * @author migueldiaz
  */
-public class UserDAOImplementation implements UserDAOInterface{
+public class UserDAOImpl implements UserDAOInterface{
     
     static final Logger log= Logger.getLogger("UserDB_log");
     
@@ -31,5 +31,7 @@ public class UserDAOImplementation implements UserDAOInterface{
         mongoOp.save(user);
         log.info("user saved // \t"+user.toString());
     }
+    
+    
     
 }

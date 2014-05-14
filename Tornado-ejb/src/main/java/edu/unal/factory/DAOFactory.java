@@ -3,37 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package edu.unal.factory;
 
-import edu.unal.dao.implementation.UserDAOImplementation;
+import edu.unal.dao.implementation.UserDAOImpl;
 
 /**
  * Fabrica todos los DAOs necesarios, para la operación de la base de datos
+ *
  * @author migueldiaz
  */
 public class DAOFactory {
-    
-    private static DAOFactory INSTANCE = new DAOFactory();
-    private UserDAOImplementation userDAO;
-    
-    
-    
-    public DAOFactory(){
-         this.userDAO=new UserDAOImplementation();
-    }
-    
-    
-    public static DAOFactory getInstance(){
+
+    private static final DAOFactory INSTANCE = new DAOFactory();
+    private UserDAOImpl userDAO;
+
+    public static DAOFactory getInstance() {
         return INSTANCE;
     }
 
-    public UserDAOImplementation getUserDAO() {
-        return userDAO;
+    public UserDAOImpl getUserDAO() {
+        if (this.userDAO == null) {
+            this.userDAO = new UserDAOImpl();
+        }
+        return this.userDAO;
     }
-    
-
-
-    
-    
 }

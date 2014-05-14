@@ -6,7 +6,7 @@
 
 package edu.unal.dao;
 
-import edu.unal.dao.implementation.UserDAOImplementation;
+import edu.unal.dao.implementation.UserDAOImpl;
 import edu.unal.factory.DAOFactory;
 import edu.unal.model.User;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
  */
 public class UserDAOTest {
      ArrayList<User> usersList = new ArrayList<>();
-    UserDAOImplementation userDAO;
+    UserDAOImpl userDAO;
     
     public UserDAOTest() {
     }
