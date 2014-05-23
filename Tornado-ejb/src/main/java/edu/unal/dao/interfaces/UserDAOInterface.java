@@ -7,6 +7,7 @@
 package edu.unal.dao.interfaces;
 
 import edu.unal.model.User;
+import java.util.List;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -20,4 +21,13 @@ public interface UserDAOInterface  {
     */
     public void save(User user);
     
+    public void delete(User user);
+    
+    public User findById(User user);
+    
+    public User findByName(User user);
+    
+    public List<User> findAll();
+    
+    public void deleteAll();
 }

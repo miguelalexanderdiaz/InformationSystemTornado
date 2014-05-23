@@ -9,6 +9,8 @@ package edu.unal.services;
 import edu.unal.dao.implementation.UserDAOImpl;
 import edu.unal.dto.UserDTO;
 import edu.unal.factory.DAOFactory;
+import edu.unal.model.User;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 /**
@@ -28,6 +30,19 @@ public class UserService {
         userDAO.save(dto.dtoToModel());
     }
     
+    public void delete(UserDTO dto){
+        userDAO.delete(dto.dtoToModel());
+    }
     
+    public void findByName(UserDTO dto){
+        userDAO.findByName(dto.dtoToModel());
+    }
     
+    public void findById(UserDTO dto){
+        userDAO.findById(dto.dtoToModel());
+    }
+    
+    public void deleteAll(){
+        userDAO.deleteAll();
+    }
 }
