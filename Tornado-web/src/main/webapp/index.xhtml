@@ -51,8 +51,12 @@
 
                             <h:outputLabel for="password" value="Contraseña: " style="font-weight:bold"/>
                             <p:password id="password" value="#{saveUser.password}" label="Contraseña" />
-                        </h:panelGrid>
 
+                            <h:outputLabel for="rolTable" value="Escoja el rol: " style="font-weight:bold"/>
+                            <h:selectOneListbox id="rolTable" value="#{saveUser.rol}">
+                                <f:selectItems value="#{saveUser.roles}" />
+                            </h:selectOneListbox>
+                        </h:panelGrid>
 
                         <p:commandButton value="Guardar Usuario" actionListener="#{saveUser.saveUser(actionEvent)}" update="growl"/>
 
