@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package edu.unal.model;
 
 import org.springframework.data.annotation.Id;
@@ -15,20 +14,24 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document
 public class User {
+
     @Id
     private String id;
     private String userName;
     private String password;
+    private Rol rol;
 
-    public User(String userName, String password) {
-        this.userName=userName;
-        this.password=password;
+    public User(String userName, String password, Rol rol) {
+        this.userName = userName;
+        this.password = password;
+        this.rol = rol;
+        
     }
 
     public String getId() {
         return id;
     }
-    
+
     public String getUserName() {
         return userName;
     }
@@ -45,12 +48,21 @@ public class User {
         this.password = password;
     }
 
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+
     @Override
-    public String toString(){
-        StringBuilder str=new StringBuilder();
+    public String toString() {
+        StringBuilder str = new StringBuilder();
         str.append("id: ").append(this.id);
         str.append(" userName: ").append(this.userName);
         str.append(" password: ").append(this.password);
+        str.append(" rol: ").append(this.rol);
         return str.toString();
     }
 

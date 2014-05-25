@@ -5,6 +5,7 @@
  */
 package edu.unal.dto;
 
+import edu.unal.model.Rol;
 import edu.unal.model.User;
 
 /**
@@ -15,22 +16,26 @@ public class UserDTO {
 
     private String userName;
     private String password;
+    private Rol rol;
 
-    public UserDTO(String userName, String password) {
+    public UserDTO(String userName, String password, Rol rol) {
         this.userName = userName;
         this.password = password;
+        this.rol=rol;
     }
 
     public User dtoToModel() {
+
         User model = new User(
                 this.getUserName(),
-                this.getPassword());
+                this.getPassword(), this.getRol());
         return model;
     }
 
     public UserDTO modeltToDTO(User model) {
         this.userName = model.getUserName();
         this.password = model.getPassword();
+        this.rol = model.getRol();
         return this;
     }
 
@@ -40,6 +45,14 @@ public class UserDTO {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 
     public String getPassword() {

@@ -7,6 +7,7 @@ package edu.unal.dao;
 
 import edu.unal.dao.implementation.UserDAOImpl;
 import edu.unal.factory.DAOFactory;
+import edu.unal.model.Rol;
 import edu.unal.model.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class UserDAOTest {
 
     ArrayList<User> usersList = new ArrayList<>();
     UserDAOImpl userDAO;
+    Rol rol;
 
     public UserDAOTest() {
     }
@@ -42,13 +44,13 @@ public class UserDAOTest {
         DAOFactory factory = DAOFactory.getInstance();//se obtiene la fabrica de daos
         this.userDAO = factory.getUserDAO();//inicializa el dao para usuarios
 
-        User user = new User("miguel diaz", "contraseña0");
+        User user = new User("miguel diaz", "contraseña0",rol.ADMINISTRADOR);
         usersList.add(user);
-        user = new User("johan rodrigez", "contraseña1");
+        user = new User("johan rodrigez", "contraseña1",rol.DISENADOR);
         usersList.add(user);
-        user = new User("luis sierra", "contraseña2");
+        user = new User("luis sierra", "contraseña2",rol.ADMINISTRADOR);
         usersList.add(user);
-        user = new User("gustavo prieto", "contraseña3");
+        user = new User("gustavo prieto", "contraseña3",rol.DISENADOR);
         usersList.add(user);
 
     }
