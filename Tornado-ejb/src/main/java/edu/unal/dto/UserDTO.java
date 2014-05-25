@@ -68,6 +68,7 @@ public class UserDTO {
         StringBuilder str = new StringBuilder();
         str.append(" userName: ").append(this.userName);
         str.append(" password: ").append(this.password);
+        str.append(" rol: ").append(this.rol);
         return str.toString();
     }
 
