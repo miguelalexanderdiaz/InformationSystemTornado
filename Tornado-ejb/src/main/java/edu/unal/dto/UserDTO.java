@@ -36,7 +36,6 @@ public class UserDTO {
     public UserDTO(String userName, String password) {
         this.userName = userName;
         this.password = password;
-        this.rol = rol;
     }
     
     public UserDTO(){}
