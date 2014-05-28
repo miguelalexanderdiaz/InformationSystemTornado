@@ -5,7 +5,7 @@
  */
 package edu.unal.dao;
 
-import edu.unal.dao.implementation.UserDAOImpl;
+import edu.unal.dao.implementation.UserDAO;
 import edu.unal.factory.DAOFactory;
 import edu.unal.model.Rol;
 import edu.unal.model.User;
@@ -25,7 +25,7 @@ import org.junit.Test;
 public class UserDAOTest {
 
     ArrayList<User> usersList = new ArrayList<>();
-    UserDAOImpl userDAO;
+    UserDAO userDAO;
     Rol rol;
 
     public UserDAOTest() {

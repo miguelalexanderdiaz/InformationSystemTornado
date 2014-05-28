@@ -1,15 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package edu.unal.services;
 
-import edu.unal.dao.implementation.UserDAOImpl;
 import edu.unal.dto.UserDTO;
 import edu.unal.factory.DAOFactory;
+import edu.unal.model.Rol;
 import edu.unal.model.User;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +16,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserService {
-    UserDAOImpl userDAO;
+    edu.unal.dao.implementation.UserDAO userDAO;
 
     public UserService() {
         DAOFactory factory=DAOFactory.getInstance();
@@ -31,15 +28,30 @@ public class UserService {
     }
     
     public void delete(UserDTO dto){
-        userDAO.delete(dto.dtoToModel());
+        User user=userDAO.findByName(dto.dtoToModel());
+        userDAO.delete(user);
     }
     
-    public void findByName(UserDTO dto){
-        userDAO.findByName(dto.dtoToModel());
+    public UserDTO findByName(UserDTO dto){
+        UserDTO found = new UserDTO(null, null, null);
+        found.modeltToDTO(userDAO.findByName(dto.dtoToModel()));
+        return found;
     }
     
-    public void findById(UserDTO dto){
-        userDAO.findById(dto.dtoToModel());
+    public UserDTO findById(UserDTO dto){
+        UserDTO found = new UserDTO(null, null, null);
+        found.modeltToDTO(userDAO.findById(dto.dtoToModel()));
+        return found;
+    }
+    
+    public List<UserDTO> findAll(){
+        List<User> users = userDAO.findAll();
+        List<UserDTO> foundUsers=new ArrayList<UserDTO>();
+        UserDTO userDTOTemp = new UserDTO(null, null, null);
+        for (User user : users) {
+            foundUsers.add(userDTOTemp.modeltToDTO(user));
+        }
+        return foundUsers;
     }
     
     public void deleteAll(){
