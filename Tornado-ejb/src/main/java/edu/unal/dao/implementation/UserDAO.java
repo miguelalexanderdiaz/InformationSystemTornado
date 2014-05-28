@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package edu.unal.dao.implementation;
 
 import com.mongodb.BasicDBObject;
@@ -24,10 +23,10 @@ import static org.springframework.data.mongodb.core.query.Query.query;
  *
  * @author migueldiaz
  */
-public class UserDAO implements UserDAOInterface{
-    
-    static final Logger log= Logger.getLogger("UserDB_log");
-    
+public class UserDAO implements UserDAOInterface {
+
+    static final Logger log = Logger.getLogger("UserDB_log");
+
     ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringMongoConfig.class);
     MongoOperations mongoOp = (MongoOperations) ctx.getBean("mongoTemplate");
 
@@ -35,36 +34,37 @@ public class UserDAO implements UserDAOInterface{
     @SuppressWarnings("LoggerStringConcat")
     public void save(User user) {
         mongoOp.save(user);
-        log.info("user saved // \t"+user.toString());
+        log.info("user saved // \t" + user.toString());
     }
 
     @Override
     public void delete(User user) {
         mongoOp.remove(user);
-        log.info("user deleted // \t"+user.toString());
+        log.info("user deleted // \t" + user.toString());
     }
 
     @Override
     public User findById(User user) {
         Query query = new Query();
         query.addCriteria(Criteria.where("id").is(user.getId()));
-        log.info("user found // \t"+user.toString());
-        User foundUser= mongoOp.findOne(query, User.class);
+        User foundUser = mongoOp.findOne(query, User.class);
+        log.info("user found // \t" + user.toString());
         return foundUser;
-    } 
-    
+    }
+
     @Override
     public User findByName(User user) {
         Query query = new Query();
         query.addCriteria(Criteria.where("userName").is(user.getUserName()));
-        log.info("user found // \t"+user.toString());
-        User foundUser= mongoOp.findOne(query, User.class);
+
+        User foundUser = mongoOp.findOne(query, User.class);
+        log.info("user found // \t" + foundUser.toString());
         return foundUser;
     }
 
     @Override
     public List<User> findAll() {
-        List<User> users=mongoOp.findAll(User.class);
+        List<User> users = mongoOp.findAll(User.class);
         return users;
     }
 
@@ -75,8 +75,5 @@ public class UserDAO implements UserDAOInterface{
             this.delete(user);
         }
     }
-    
-    
-    
-  
+
 }
