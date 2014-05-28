@@ -5,7 +5,7 @@
  */
 package edu.unal.factory;
 
-import edu.unal.dao.implementation.UserDAOImpl;
+import edu.unal.dao.implementation.UserDAO;
 
 /**
  * Fabrica todos los DAOs necesarios, para la operación de la base de datos
@@ -15,15 +15,15 @@ import edu.unal.dao.implementation.UserDAOImpl;
 public class DAOFactory {
 
     private static final DAOFactory INSTANCE = new DAOFactory();
-    private UserDAOImpl userDAO;
+    private UserDAO userDAO;
 
     public static DAOFactory getInstance() {
         return INSTANCE;
     }
 
-    public UserDAOImpl getUserDAO() {
+    public UserDAO getUserDAO() {
         if (this.userDAO == null) {
-            this.userDAO = new UserDAOImpl();
+            this.userDAO = new UserDAO();
         }
         return this.userDAO;
     }

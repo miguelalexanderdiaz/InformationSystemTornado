@@ -24,7 +24,7 @@ import static org.springframework.data.mongodb.core.query.Query.query;
  *
  * @author migueldiaz
  */
-public class UserDAOImpl implements UserDAOInterface{
+public class UserDAO implements UserDAOInterface{
     
     static final Logger log= Logger.getLogger("UserDB_log");
     
