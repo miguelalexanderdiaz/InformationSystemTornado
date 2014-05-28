@@ -6,19 +6,17 @@
 
 package edu.unal.dao.implementation;
 
-import com.mongodb.BasicDBObject;
 import edu.unal.configuration.SpringMongoConfig;
 import edu.unal.dao.interfaces.UserDAOInterface;
 import edu.unal.model.User;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import static org.springframework.data.mongodb.core.query.Query.query;
 
 /**
  *
@@ -32,16 +30,15 @@ public class UserDAOImpl implements UserDAOInterface{
     MongoOperations mongoOp = (MongoOperations) ctx.getBean("mongoTemplate");
 
     @Override
-    @SuppressWarnings("LoggerStringConcat")
     public void save(User user) {
         mongoOp.save(user);
-        log.info("user saved // \t"+user.toString());
+        log.log(Level.INFO, "user saved // \t{0}", user.toString());
     }
 
     @Override
     public void delete(User user) {
         mongoOp.remove(user);
-        log.info("user deleted // \t"+user.toString());
+        log.log(Level.INFO, "user deleted // \t{0}", user.toString());
     }
 
     @Override
@@ -57,7 +54,7 @@ public class UserDAOImpl implements UserDAOInterface{
     public User findByName(User user) {
         Query query = new Query();
         query.addCriteria(Criteria.where("userName").is(user.getUserName()));
-        log.info("user found // \t"+user.toString());
+        log.log(Level.INFO, "user found // \t{0}", user.toString());
         User foundUser= mongoOp.findOne(query, User.class);
         return foundUser;
     }

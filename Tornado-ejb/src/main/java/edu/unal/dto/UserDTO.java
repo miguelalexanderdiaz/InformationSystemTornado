@@ -23,6 +23,8 @@ public class UserDTO {
         this.password = password;
         this.rol=rol;
     }
+    
+    public UserDTO(){}
 
     public User dtoToModel() {
 
