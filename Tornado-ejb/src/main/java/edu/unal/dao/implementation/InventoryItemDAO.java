@@ -20,7 +20,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
  *
  * @author migueldiaz
  */
-public class InventoryItemDAOImpl implements InventoryItemDAOInterface{
+public class InventoryItemDAO implements InventoryItemDAOInterface{
     
     static final Logger log=Logger.getLogger("InventoryItemDB_log");
     

@@ -26,7 +26,6 @@ public class UserDAOTest {
 
     ArrayList<User> usersList = new ArrayList<>();
     UserDAO userDAO;
-    Rol rol;
 
     public UserDAOTest() {
     }
@@ -44,13 +43,13 @@ public class UserDAOTest {
         DAOFactory factory = DAOFactory.getInstance();//se obtiene la fabrica de daos
         this.userDAO = factory.getUserDAO();//inicializa el dao para usuarios
 
-        User user = new User("miguel diaz", "contraseña0",rol.ADMINISTRADOR);
+        User user = new User("miguel diaz", "contraseña0",Rol.ADMINISTRADOR);
         usersList.add(user);
-        user = new User("johan rodrigez", "contraseña1",rol.DISENADOR);
+        user = new User("johan rodrigez", "contraseña1",Rol.DISENADOR);
         usersList.add(user);
-        user = new User("luis sierra", "contraseña2",rol.ADMINISTRADOR);
+        user = new User("luis sierra", "contraseña2",Rol.ADMINISTRADOR);
         usersList.add(user);
-        user = new User("gustavo prieto", "contraseña3",rol.DISENADOR);
+        user = new User("gustavo prieto", "contraseña3",Rol.DISENADOR);
         usersList.add(user);
 
     }

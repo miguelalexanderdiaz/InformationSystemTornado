@@ -14,13 +14,16 @@ import java.util.logging.Logger;
  * @author migueldiaz
  */
 public class HashSHA256 {
+    
 
     static final Logger log = Logger.getLogger("Hash_log");
-
-    public String getHash(String plain) {
+    private static String SALT="2da31fb51a0614beca71d95c1ae9ba33cdc499a48c5d87f722e959c03a27e1ef";
+        
+    public static String getHash(String plain) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(plain.getBytes());
+            String aux=plain+SALT;
+            md.update(aux.getBytes());
             byte byteData[] = md.digest();
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < byteData.length; i++) {

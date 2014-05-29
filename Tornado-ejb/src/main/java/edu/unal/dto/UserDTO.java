@@ -24,6 +24,7 @@ public class UserDTO {
         this.password = password;
         this.rol = rol;
     }
+    public UserDTO(){}
 
     public String getId() {
         return id;
@@ -38,7 +39,6 @@ public class UserDTO {
         this.password = password;
     }
     
-    public UserDTO(){}
 
     public User dtoToModel() {
 

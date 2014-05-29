@@ -7,6 +7,7 @@
 package edu.unal.factory;
 
 import edu.unal.services.InventoryItemService;
+import edu.unal.services.UserService;
 
 /**
  *
@@ -16,6 +17,7 @@ public class ServiceFactory {
     
     private static final ServiceFactory INSTANCE=new ServiceFactory();
     private InventoryItemService inventoryService;
+    private UserService userService;
     
     
     public static ServiceFactory getInstance(){
@@ -27,6 +29,13 @@ public class ServiceFactory {
             this.inventoryService=new InventoryItemService();
         }
         return this.inventoryService;
+    }
+    
+    public UserService getUserService(){
+        if(this.userService==null){
+            this.userService=new UserService();
+        }
+        return this.userService;
     }
         
 }

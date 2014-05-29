@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.unal.dao;
+package edu.unal.service;
 
 import edu.unal.dto.UserDTO;
-import edu.unal.factory.DAOFactory;
+import edu.unal.helper.HashSHA256;
 import edu.unal.model.Rol;
 import edu.unal.model.User;
 import edu.unal.services.UserService;
@@ -28,7 +28,6 @@ public class UserServiceTest {
     ArrayList<User> usersList = new ArrayList<>();
     UserService userService = new UserService();
 
-    Rol rol;
 
     public UserServiceTest() {
     }
@@ -44,13 +43,13 @@ public class UserServiceTest {
     @Before
     public void setUp() {
 
-        User user = new User("miguel diaz", "contraseña0", rol.ADMINISTRADOR);
+        User user = new User("miguel diaz", "contraseña0", Rol.ADMINISTRADOR);
         usersList.add(user);
-        user = new User("johan rodrigez", "contraseña1", rol.DISENADOR);
+        user = new User("johan rodrigez", "contraseña1", Rol.DISENADOR);
         usersList.add(user);
-        user = new User("luis sierra", "contraseña2", rol.ADMINISTRADOR);
+        user = new User("luis sierra", "contraseña2", Rol.ADMINISTRADOR);
         usersList.add(user);
-        user = new User("gustavo prieto", "contraseña3", rol.DISENADOR);
+        user = new User("gustavo prieto", "contraseña3", Rol.DISENADOR);
         usersList.add(user);
 
     }
@@ -64,7 +63,7 @@ public class UserServiceTest {
         Boolean flag = true;
 
         for (User u : usersList) {
-            UserDTO user = new UserDTO(u.getUserName(), u.getPassword(), u.getRol());
+            UserDTO user = new UserDTO(u.getUserName(), HashSHA256.getHash(u.getPassword()) , u.getRol());
             userService.save(user);
             if (!userService.findByName(user).getUserName().equals(user.getUserName())) {
                 flag = false;

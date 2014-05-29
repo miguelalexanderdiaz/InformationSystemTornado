@@ -4,7 +4,6 @@ package edu.unal.services;
 
 import edu.unal.dto.UserDTO;
 import edu.unal.factory.DAOFactory;
-import edu.unal.model.Rol;
 import edu.unal.model.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +45,8 @@ public class UserService {
     
     public List<UserDTO> findAll(){
         List<User> users = userDAO.findAll();
-        List<UserDTO> foundUsers=new ArrayList<UserDTO>();
-        UserDTO userDTOTemp = new UserDTO(null, null, null);
+        List<UserDTO> foundUsers=new ArrayList<>();
+        UserDTO userDTOTemp = new UserDTO();
         for (User user : users) {
             foundUsers.add(userDTOTemp.modeltToDTO(user));
         }

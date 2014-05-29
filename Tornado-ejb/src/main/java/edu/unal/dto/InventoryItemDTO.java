@@ -72,9 +72,9 @@ public class InventoryItemDTO {
     @Override
     public String toString(){
         StringBuilder str=new StringBuilder();
-        str.append("code ").append(this.code);
-        str.append(" description ").append(this.description);
-        str.append(" measure ").append(this.measure);
+        str.append("code: ").append(this.code);
+        str.append(" description: ").append(this.description);
+        str.append(" measure: ").append(this.measure);
         return str.toString();
     }
     

@@ -6,7 +6,7 @@
 
 package edu.unal.services;
 
-import edu.unal.dao.implementation.InventoryItemDAOImpl;
+import edu.unal.dao.implementation.InventoryItemDAO;
 import edu.unal.dto.InventoryItemDTO;
 import edu.unal.factory.DAOFactory;
 import edu.unal.model.InventoryItem;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class InventoryItemService {
-    InventoryItemDAOImpl inventoryDAO;
+    InventoryItemDAO inventoryDAO;
     
     public InventoryItemService(){
         DAOFactory factory=DAOFactory.getInstance();
@@ -38,8 +38,9 @@ public class InventoryItemService {
     public List<InventoryItemDTO> findAll(){
         List<InventoryItem> list=inventoryDAO.findAll();
         List<InventoryItemDTO> dtoList=new ArrayList<>();
-        InventoryItemDTO aux=new InventoryItemDTO();
+        
         for(InventoryItem item:list){
+            InventoryItemDTO aux=new InventoryItemDTO();
             dtoList.add(aux.modelToDTO(item));
         }
         return dtoList;

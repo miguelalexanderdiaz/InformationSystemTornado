@@ -5,7 +5,7 @@
  */
 package edu.unal.factory;
 
-import edu.unal.dao.implementation.InventoryItemDAOImpl;
+import edu.unal.dao.implementation.InventoryItemDAO;
 import edu.unal.dao.implementation.UserDAO;
 
 
@@ -21,7 +21,7 @@ public class DAOFactory {
 
     private static final DAOFactory INSTANCE = new DAOFactory();
     private UserDAO userDAO;
-    private InventoryItemDAOImpl inventoryDAO;
+    private InventoryItemDAO inventoryDAO;
 
     public static DAOFactory getInstance() {
         return INSTANCE;
@@ -34,9 +34,9 @@ public class DAOFactory {
         return this.userDAO;
     }
     
-    public InventoryItemDAOImpl getInventoryDAO(){
+    public InventoryItemDAO getInventoryDAO(){
         if(this.inventoryDAO==null){
-            this.inventoryDAO=new InventoryItemDAOImpl();
+            this.inventoryDAO=new InventoryItemDAO();
         }
         return this.inventoryDAO;
     }
