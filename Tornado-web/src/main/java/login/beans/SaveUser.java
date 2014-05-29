@@ -6,7 +6,7 @@
 package login.beans;
 
 import edu.unal.dto.UserDTO;
-import edu.unal.factory.ServiceFactory;
+import edu.unal.sessionhandler.SessionHandler;
 import edu.unal.helper.HashSHA256;
 import edu.unal.model.Rol;
 import edu.unal.services.UserService;
@@ -44,8 +44,8 @@ public class SaveUser {
     private Rol roles[]=new Rol[2];
     
     public SaveUser() {
-        ServiceFactory sf=ServiceFactory.getInstance();
-        this.userService=sf.getUserService();
+        new SessionHandler();
+        this.userService=SessionHandler.serviceFactory.getUserService();
         this.setFixedRoles();
     }
     
@@ -74,8 +74,8 @@ public class SaveUser {
     }           
 
     public void setFixedRoles(){
-        roles[0]=rol.ADMINISTRADOR;
-        roles[1]=rol.DISENADOR;
+        roles[0]=Rol.ADMINISTRADOR;
+        roles[1]=Rol.DISENADOR;
     }
 
     public Rol[] getRoles() {

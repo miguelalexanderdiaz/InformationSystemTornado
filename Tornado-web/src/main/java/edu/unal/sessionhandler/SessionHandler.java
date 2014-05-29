@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package edu.unal.sessionhandler;
 
-package edu.unal.user.ui;
-
-import java.util.ArrayList;
+import edu.unal.factory.ServiceFactory;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -16,14 +15,12 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class InventoryBean {
-    
-   // private ArrayList<>
+public class SessionHandler {
 
-    /**
-     * Creates a new instance of InventoryBean
-     */
-    public InventoryBean() {
+    public static ServiceFactory serviceFactory;
+
+    public SessionHandler() {
+        serviceFactory = ServiceFactory.getInstance();
     }
-    
+
 }

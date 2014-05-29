@@ -51,65 +51,44 @@
 
                         <p:growl id="messages" showDetail="true"/>
 
-                        <p:dataTable var="car" value="#{tableBean.carsSmall}" id="carList" editable="true" scrollable="true" selection="#{tableBean.selectedCar}" rows="10">
-                             
 
 
-                            <p:ajax event="rowEdit" listener="#{tableBean.onEdit}" update=":form:messages" />
-                            <p:ajax event="rowEditCancel" listener="#{tableBean.onCancel}" update=":form:messages" />
+                        <p:dataTable var="inventory_item" value="#{inventoryBean.inventoryList}" id="inventory" editable="true" scrollable="true" selection="#{inventoryBean.selectedItem}" rows="10">
+
+
+                            <p:ajax event="rowEdit" listener="#{inventoryBean.onEdit}" update=":form:messages" />
+                            <p:ajax event="rowEditCancel" listener="#{inventoryBean.onCancel}" update=":form:messages" />
+
+                            <p:column headerText="Codigo" >
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{inventory_item.code}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{inventory_item.code}" style="width:100%"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Descripcion" >
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{inventory_item.description}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{inventory_item.description}" style="width:100%" />
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
                             
-                            <!-- <p:column selectionMode="single" style="width:4%" />-->
-
-                            <p:column headerText="Model" style="width:30%">
+                            
+                            <p:column headerText="Medida" >
                                 <p:cellEditor>
                                     <f:facet name="output">
-                                        <h:outputText value="#{car.model}" />
+                                        <h:outputText value="#{inventory_item.measure}" />
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText value="#{car.model}" style="width:100%"/>
-                                    </f:facet>
-                                </p:cellEditor>
-                            </p:column>
-
-                            <p:column headerText="Year" style="width:20%">
-                                <p:cellEditor>
-                                    <f:facet name="output">
-                                        <h:outputText value="#{car.year}" />
-                                    </f:facet>
-                                    <f:facet name="input">
-                                        <p:inputText value="#{car.year}" style="width:100%" label="Year"/>
-                                    </f:facet>
-                                </p:cellEditor>
-                            </p:column>
-
-                            <p:column headerText="Manufacturer" style="width:24%">
-                                <p:cellEditor>
-                                    <f:facet name="output">
-                                        <h:outputText value="#{car.manufacturer}" />
-                                    </f:facet>
-                                    <f:facet name="input">
-                                        <h:selectOneMenu value="#{car.manufacturer}" >
-                                            <f:selectItems value="#{tableBean.manufacturers}"
-                                                           var="man"
-                                                           itemLabel="#{man}"
-                                                           itemValue="#{man}" />
-                                        </h:selectOneMenu>
-                                    </f:facet>
-                                </p:cellEditor>
-                            </p:column>
-
-                            <p:column headerText="Color" style="width:20%">
-                                <p:cellEditor>
-                                    <f:facet name="output">
-                                        <h:outputText value="#{car.color}" />
-                                    </f:facet>
-                                    <f:facet name="input">
-                                        <h:selectOneMenu value="#{car.color}" >
-                                            <f:selectItems value="#{tableBean.colors}"
-                                                           var="color"
-                                                           itemLabel="#{color}"
-                                                           itemValue="#{color}" />
-                                        </h:selectOneMenu>
+                                        <p:inputText value="#{inventory_item.measure}" style="width:100%" />
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
@@ -120,6 +99,8 @@
 
                         </p:dataTable>
 
+
+
                     </h:form>
 
                 </p:layoutUnit>
@@ -129,4 +110,5 @@
         </h:body>
     </f:view>
 </html>
+
 
