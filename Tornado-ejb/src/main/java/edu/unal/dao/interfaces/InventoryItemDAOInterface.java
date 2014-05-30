@@ -21,8 +21,12 @@ public interface InventoryItemDAOInterface {
     
     public void delete(InventoryItem inventoryItem);
     
+    public void update(InventoryItem oldItem,InventoryItem newItem);
+    
     public List<InventoryItem> findAll();
     
     public void deleteAll();
+    
+    public InventoryItem findOne(InventoryItem inventoryItem);
     
 }

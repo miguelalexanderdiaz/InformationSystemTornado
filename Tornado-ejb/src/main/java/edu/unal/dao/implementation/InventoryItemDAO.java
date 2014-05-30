@@ -15,6 +15,9 @@ import java.util.logging.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 
 /**
  *
@@ -35,7 +38,7 @@ public class InventoryItemDAO implements InventoryItemDAOInterface{
 
     @Override
     public void delete(InventoryItem inventoryItem) {
-        mongoOp.remove(inventoryItem);
+        mongoOp.remove( findOne(inventoryItem));
         log.log(Level.INFO, "inventory item deleted // \t{0}", inventoryItem.toString());
     }
 
@@ -52,5 +55,36 @@ public class InventoryItemDAO implements InventoryItemDAOInterface{
             this.delete(item);
         }
     }
+
+    @Override
+    public void update(InventoryItem oldItem, InventoryItem newItem) {
+        Query q =new Query();
+        q.addCriteria(Criteria.where("code").
+                is(oldItem.getCode()).and("description").
+                is(oldItem.getDescription()).and("measure").
+                is(oldItem.getMeasure()));
+        Update up=new Update();
+        up.set("code", newItem.getCode());
+        up.set("description", newItem.getDescription());
+        up.set("measure", newItem.getMeasure());
+        
+        mongoOp.findAndModify(q, up, InventoryItem.class);
+        Object aux [] = {oldItem.toString(),newItem.toString()};
+        log.log(Level.INFO, "actualizado de: {0} a {1}: ", aux);
+        
+        
+    }
+
+    @Override
+    public InventoryItem findOne(InventoryItem inventoryItem) {
+        Query q =new Query();
+        q.addCriteria(Criteria.where("code").
+                is(inventoryItem.getCode()).and("description").
+                is(inventoryItem.getDescription()).and("measure").
+                is(inventoryItem.getMeasure()));
+        return mongoOp.findOne(q, InventoryItem.class);
+    }
+    
+    
     
 }

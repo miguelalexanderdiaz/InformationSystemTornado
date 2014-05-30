@@ -51,4 +51,14 @@ public class InventoryItemService {
         inventoryDAO.deleteAll();
     }
     
+    public void update(InventoryItemDTO oldItem, InventoryItemDTO newItem){
+        inventoryDAO.update(oldItem.dtoToModel(), newItem.dtoToModel());
+    }
+    
+    public InventoryItemDTO findOne(InventoryItemDTO dto){
+        InventoryItemDTO aux=new InventoryItemDTO();
+        InventoryItem model= inventoryDAO.findOne(dto.dtoToModel());
+        return aux.modelToDTO(model);
+    }
+    
 }
