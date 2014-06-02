@@ -11,14 +11,17 @@ import edu.unal.dao.interfaces.UserDAOInterface;
 import edu.unal.model.InventoryItem;
 import edu.unal.model.User;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.BasicQuery;
+import org.springframework.data.mongodb.core.query.BasicUpdate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import static org.springframework.data.mongodb.core.query.Query.query;
+import org.springframework.data.mongodb.core.query.Update;
 
 /**
  *
@@ -85,6 +88,21 @@ public class UserDAO implements UserDAOInterface {
                 is(user.getPassword()).and("rol").
                 is(user.getRol()));
         return mongoOp.findOne(q, User.class);
+    }
+
+    @Override
+    public void update(User oldUser, User newUser) {
+        Query q=new Query();
+        q.addCriteria(Criteria.where("userName").is(oldUser.getUserName()).
+                and("password").is(oldUser.getPassword()).and("rol").is(oldUser.getRol()));
+        Update up=new Update();
+        up.set("userName", newUser.getUserName());
+        up.set("password", newUser.getPassword());
+        up.set("rol", newUser.getRol());
+        
+        mongoOp.findAndModify(q, up, User.class);
+        Object aux[] = {oldUser.toString(),newUser.toString()};
+        log.log(Level.INFO, "actualizado de: {0} a {1} ", aux);
     }
     
     

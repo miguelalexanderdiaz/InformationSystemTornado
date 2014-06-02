@@ -55,17 +55,17 @@ public class InventoryItemServiceTest {
     public void tearDown() {  
     }
     
-    @Test
-    public void testSave() {
-        try {
-            for (InventoryItemDTO dto : inventoryList) {
-                inventoryService.save(dto);
-            }
-        } catch (Exception e) {
-            assertTrue(false);
-        }
-        assertTrue(true);
-    }
+//    @Test
+//    public void testSave() {
+//        try {
+//            for (InventoryItemDTO dto : inventoryList) {
+//                inventoryService.save(dto);
+//            }
+//        } catch (Exception e) {
+//            assertTrue(false);
+//        }
+//        assertTrue(true);
+//    }
     
     @Test
     public void testUpdate() {
@@ -73,7 +73,7 @@ public class InventoryItemServiceTest {
         inventoryService.save(oldItem);
         InventoryItemDTO newItem=new InventoryItemDTO("A1115", "modificación del dto", "medida dto modificado");
         inventoryService.update(oldItem, newItem);
-        testSave();
+        //testSave();
         InventoryItemDTO aux=inventoryService.findOne(newItem);
         assertNotNull(aux);
         

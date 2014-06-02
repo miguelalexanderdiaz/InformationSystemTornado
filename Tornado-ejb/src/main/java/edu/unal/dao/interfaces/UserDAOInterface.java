@@ -32,4 +32,6 @@ public interface UserDAOInterface  {
     public List<User> findAll();
     
     public void deleteAll();
+    
+    public void update(User oldUser, User newUser);
 }
