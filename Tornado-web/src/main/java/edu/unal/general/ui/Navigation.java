@@ -32,4 +32,8 @@ public class Navigation implements Serializable{
     public String indexToLogin(){
         return "login";
     }
+    
+    public String indexToUsersTable(){
+        return "userst";
+    }
 }
