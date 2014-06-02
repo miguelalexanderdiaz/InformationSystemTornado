@@ -8,6 +8,7 @@ package edu.unal.dao.implementation;
 import com.mongodb.BasicDBObject;
 import edu.unal.configuration.SpringMongoConfig;
 import edu.unal.dao.interfaces.UserDAOInterface;
+import edu.unal.model.InventoryItem;
 import edu.unal.model.User;
 import java.util.List;
 import java.util.logging.Logger;
@@ -39,7 +40,7 @@ public class UserDAO implements UserDAOInterface {
 
     @Override
     public void delete(User user) {
-        mongoOp.remove(user);
+        mongoOp.remove(findOne(user));
         log.info("user deleted // \t" + user.toString());
     }
 
@@ -75,5 +76,17 @@ public class UserDAO implements UserDAOInterface {
             this.delete(user);
         }
     }
+
+    @Override
+    public User findOne(User user) {
+        Query q =new Query();
+        q.addCriteria(Criteria.where("userName").
+                is(user.getUserName()).and("password").
+                is(user.getPassword()).and("rol").
+                is(user.getRol()));
+        return mongoOp.findOne(q, User.class);
+    }
+    
+    
 
 }
