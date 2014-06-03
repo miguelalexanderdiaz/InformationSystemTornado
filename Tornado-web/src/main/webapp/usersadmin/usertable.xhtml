@@ -1,104 +1,100 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+
+           
+                        <p:menubar>
+                            <p:submenu label="Administración" icon="ui-icon-person">
+                                <p:menuitem value="Nuevo Usuario" icon="ui-icon-circle-plus" actionListener="#{userBeanUI.changeVisibilityNewItemDialog()}" update=":form:new_item_dialog" />
+                                <p:menuitem value="Eliminar" icon="ui-icon-trash" actionListener="#{userAdminBeanController.deleteSelectedItems()}" update=":form:inventory" />
+                                <p:separator />
+                                <p:menuitem value="Quit" url="#" />
+                            </p:submenu>
+                            <p:submenu label="Edit" icon="ui-icon-pencil">
+                                <p:menuitem value="Undo" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+                                <p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                            </p:submenu>
+                        </p:menubar>
 
 
 
-    <p:menubar>
-        <p:submenu label="Administración" icon="ui-icon-person">
-            <p:menuitem value="Nuevo Usuario" icon="ui-icon-circle-plus" actionListener="#{userBeanUI.changeVisibilityNewItemDialog()}" update=":form:new_item_dialog" />
-            <p:menuitem value="Eliminar" icon="ui-icon-trash" actionListener="#{userAdminBeanController.deleteSelectedItems()}" update=":form:inventory" />
-            <p:separator />
-            <p:menuitem value="Quit" url="#" />
-        </p:submenu>
-        <p:submenu label="Edit" icon="ui-icon-pencil">
-            <p:menuitem value="Undo" url="#" icon="ui-icon-arrowreturnthick-1-w" />
-            <p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e" />
-        </p:submenu>
-    </p:menubar>
+                        <p:growl id="messages" showDetail="true"/>
 
 
 
-    <p:growl id="messages" showDetail="true"/>
+                        <p:dataTable var="inventory_item" value="#{userAdminBeanController.userList}" id="inventory"  selection="#{userAdminBeanController.selectedUserList}" rowKey="#{inventory_item.userName}" editable="true"  >
+
+                            
+                            <p:column selectionMode="multiple" style="width:2%;text-align:center"/>
+
+                            <p:ajax event="rowEdit" listener="#{userAdminBeanController.onEdit}" update=":form:messages" />
+                            <p:ajax event="rowEditCancel" listener="#{userAdminBeanController.onCancel}" update=":form:messages" />
+                            <p:ajax event="rowEditInit" listener="#{userAdminBeanController.onEditInit}"/>
+
+                            <p:column headerText="nombre" >
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{inventory_item.userName}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{inventory_item.userName}" style="width:100%"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Password" >
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{inventory_item.password}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{inventory_item.password}" style="width:100%" />
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
 
 
+                            <p:column headerText="Rol" >
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{inventory_item.rol}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{inventory_item.rol}" style="width:100%" />
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
 
-    <p:dataTable var="inventory_item" value="#{userAdminBeanController.userList}" id="inventory"  selection="#{userAdminBeanController.selectedUserList}" rowKey="#{inventory_item.userName}" editable="true"  >
+                            <p:column id="controlColumn" style="width:5%">
+                                <p:rowEditor />
+                            </p:column>
 
+                        </p:dataTable>
 
-        <p:column selectionMode="multiple" style="width:2%;text-align:center"/>
+                        <p:dialog id="new_item_dialog" widgetVar="dlg" visible="#{userBeanUI.visibleNewItemDialog}" dynamic="true" header="Nuevo Usuario" resizable="false" showEffect="clip" hideEffect="clip" closable="true" draggable="false"
+                                  width="500" height="350">
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Nombre de usuario: " for=":form:input_code" />
+                                <p:inputText id="input_code" value="#{userAdminBeanController.userName}"/>
 
-        <p:ajax event="rowEdit" listener="#{userAdminBeanController.onEdit}" update=":form:messages" />
-        <p:ajax event="rowEditCancel" listener="#{userAdminBeanController.onCancel}" update=":form:messages" />
-        <p:ajax event="rowEditInit" listener="#{userAdminBeanController.onEditInit}"/>
+                                <h:outputLabel value="Password" for=":form:input_description" />
+                                <p:inputText id="input_description" value="#{userAdminBeanController.password}"/>
 
-        <p:column headerText="nombre" >
-            <p:cellEditor>
-                <f:facet name="output">
-                    <h:outputText value="#{inventory_item.userName}" />
-                </f:facet>
-                <f:facet name="input">
-                    <p:inputText value="#{inventory_item.userName}" style="width:100%"/>
-                </f:facet>
-            </p:cellEditor>
-        </p:column>
+                                <h:outputLabel value="Rol" for=":form:input_measure" />
+                                <p:inputText id="input_measure" value="#{userAdminBeanController.rol}"/>
 
-        <p:column headerText="Password" >
-            <p:cellEditor>
-                <f:facet name="output">
-                    <h:outputText value="#{inventory_item.password}" />
-                </f:facet>
-                <f:facet name="input">
-                    <p:inputText value="#{inventory_item.password}" style="width:100%" />
-                </f:facet>
-            </p:cellEditor>
-        </p:column>
+                            </h:panelGrid>
 
-
-        <p:column headerText="Rol" >
-            <p:cellEditor>
-                <f:facet name="output">
-                    <h:outputText value="#{inventory_item.rol}" />
-                </f:facet>
-                <f:facet name="input">
-                    <p:inputText value="#{inventory_item.rol}" style="width:100%" />
-                </f:facet>
-            </p:cellEditor>
-        </p:column>
-
-        <p:column id="controlColumn" style="width:5%">
-            <p:rowEditor />
-        </p:column>
-
-    </p:dataTable>
-
-    <p:dialog id="new_item_dialog" widgetVar="dlg" visible="#{userBeanUI.visibleNewItemDialog}" dynamic="true" header="Nuevo Usuario" resizable="false" showEffect="clip" hideEffect="clip" closable="true" draggable="false"
-              width="500" height="350">
-        <h:panelGrid  id="create_grid" columns="2">
-            <p:messages id="messages" showDetail="true" autoUpdate="true"/>  
-            <h:outputLabel value="Nombre de usuario: " for=":form:input_code" />
-            <p:inputText id="input_code" value="#{userAdminBeanController.userName}"/>
-            
-            <h:outputLabel value="Password" for=":form:input_description" />
-            <p:password id="input_description" value="#{userAdminBeanController.password}" match="input_confirm" feedback="false" required="true"/>
-                      
-            <h:outputLabel value="Confirmación de password" for=":form:input_confirm"/>
-            <p:password id="input_confirm" value="#{userAdminBeanController.passConfirm}" feedback="false" required="true"/>
-
-            <h:outputLabel value="Rol" for=":form:input_measure" />
-            <p:inputText id="input_measure" value="#{userAdminBeanController.rol}"/>
-
-        </h:panelGrid>
-
-        <p:commandButton value="Guardar" actionListener="#{userAdminBeanController.saveUser}" action="#{userBeanUI.changeVisibilityNewItemDialog()}" update="inventory new_item_dialog create_grid" />
+                            <p:commandButton value="Guardar" actionListener="#{userAdminBeanController.saveUser}" action="#{userBeanUI.changeVisibilityNewItemDialog()}" update="new_item_dialog inventory" />
 
 
 
 
-    </p:dialog> 
+                        </p:dialog> 
 
 
 
