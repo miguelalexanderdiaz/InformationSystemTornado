@@ -185,6 +185,8 @@ public class UserServiceTest {
         }
         System.out.println("================================================================");
         assertTrue(flag);
+        
+    }
     public void testUpdate(){
         UserDTO oldUser=new UserDTO("admin", "admin", Rol.ADMINISTRADOR);
         userService.save(oldUser);
