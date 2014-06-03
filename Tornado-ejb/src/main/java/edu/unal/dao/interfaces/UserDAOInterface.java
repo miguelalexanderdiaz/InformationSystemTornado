@@ -27,7 +27,11 @@ public interface UserDAOInterface  {
     
     public User findByName(User user);
     
+    public User findOne(User user);
+    
     public List<User> findAll();
     
     public void deleteAll();
+    
+    public void update(User oldUser, User newUser);
 }

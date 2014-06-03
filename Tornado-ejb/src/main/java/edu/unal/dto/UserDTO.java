@@ -14,7 +14,6 @@ import edu.unal.model.User;
  */
 public class UserDTO {
 
-    private String id;
     private String userName;
     private String password;
     private Rol rol;
@@ -26,13 +25,6 @@ public class UserDTO {
     }
     public UserDTO(){}
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public UserDTO(String userName, String password) {
         this.userName = userName;
@@ -82,7 +74,6 @@ public class UserDTO {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append(" id: ").append(this.id);
         str.append(" userName: ").append(this.userName);
         str.append(" password: ").append(this.password);
         str.append(" rol: ").append(this.rol);

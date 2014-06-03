@@ -68,6 +68,50 @@ public class UserServiceTest {
 
     }
 
+//    @Test
+//    public void testSave() {
+//        Boolean flag = true;
+//
+//        for (User u : usersList) {
+//            UserDTO user = new UserDTO(u.getUserName(), HashSHA256.getHash(u.getPassword()) , u.getRol());
+//            userService.save(user);
+//            if (!userService.findByName(user).getUserName().equals(user.getUserName())) {
+//                flag = false;
+//            }
+//        }
+//        userService.deleteAll();
+//        assertTrue(flag);
+//    }
+//
+//    @Test
+//    public void testDeleteAll() {
+//        Boolean flag = true;
+//        for (User u : usersList) {
+//            UserDTO user = new UserDTO(u.getUserName(), u.getPassword(), u.getRol());
+//            userService.save(user);
+//        }
+//        userService.deleteAll();
+//        List<UserDTO> testList = userService.findAll();
+//        if (!testList.isEmpty()) {
+//            flag = false;
+//        }
+//        assertTrue(flag);
+//    }
+//
+//    @Test
+//    public void testFindByName() {
+//        Boolean flag = true;
+//        for (User u : usersList) {
+//            UserDTO user = new UserDTO(u.getUserName(), u.getPassword(), u.getRol());
+//            userService.save(user);
+//            if (!userService.findByName(user).getUserName().equals(user.getUserName())) {
+//                flag = false;
+//            }
+//        }
+//        userService.deleteAll();
+//        assertTrue(flag);
+//    }
+    
     @Test
     public void testSave() {
         Boolean flag = true;
@@ -141,6 +185,14 @@ public class UserServiceTest {
         }
         System.out.println("================================================================");
         assertTrue(flag);
+    public void testUpdate(){
+        UserDTO oldUser=new UserDTO("admin", "admin", Rol.ADMINISTRADOR);
+        userService.save(oldUser);
+        UserDTO newUser=new UserDTO("admin1", "admin1", Rol.ADMINISTRADOR);
+        System.out.println("NAMO new user: "+newUser.toString());
+        userService.update(oldUser, newUser);
+        UserDTO aux=userService.findOne(newUser);
+        assertNotNull(aux);
     }
 
 }

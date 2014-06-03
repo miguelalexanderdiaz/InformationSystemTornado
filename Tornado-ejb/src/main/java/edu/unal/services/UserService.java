@@ -32,17 +32,28 @@ public class UserService {
     }
     
     public UserDTO findByName(UserDTO dto){
-        UserDTO found = new UserDTO(null, null, null);
+        UserDTO found = new UserDTO();
         found.modeltToDTO(userDAO.findByName(dto.dtoToModel()));
         return found;
     }
     
     public UserDTO findById(UserDTO dto){
-        UserDTO found = new UserDTO(null, null, null);
+        UserDTO found = new UserDTO();
         found.modeltToDTO(userDAO.findById(dto.dtoToModel()));
         return found;
     }
     
+    public UserDTO findOne(UserDTO dto){
+        UserDTO found = new UserDTO();
+        User model = userDAO.findOne(dto.dtoToModel());
+        if(model!=null){
+                    return found.modeltToDTO(model);
+        }
+        else{
+            System.out.println("NO EXISTE");
+            return null;
+        }
+    }
     public List<UserDTO> findAll(){
         List<User> users = userDAO.findAll();
         List<UserDTO> foundUsers=new ArrayList<>();
@@ -56,4 +67,8 @@ public class UserService {
     public void deleteAll(){
         userDAO.deleteAll();
     }
+    
+    public void update(UserDTO oldUser, UserDTO newUser){
+        userDAO.update(oldUser.dtoToModel(),newUser.dtoToModel());
+    } 
 }
