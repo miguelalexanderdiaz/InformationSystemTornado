@@ -9,7 +9,6 @@ import edu.unal.dto.InventoryItemDTO;
 import edu.unal.factory.ServiceFactory;
 import edu.unal.services.InventoryItemService;
 import java.util.ArrayList;
-import java.util.Random;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

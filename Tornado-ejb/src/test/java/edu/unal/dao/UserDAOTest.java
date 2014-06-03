@@ -7,6 +7,7 @@ package edu.unal.dao;
 
 import edu.unal.dao.implementation.UserDAO;
 import edu.unal.factory.DAOFactory;
+import edu.unal.helper.HashSHA256;
 import edu.unal.model.Rol;
 import edu.unal.model.User;
 import java.util.ArrayList;
@@ -43,13 +44,13 @@ public class UserDAOTest {
         DAOFactory factory = DAOFactory.getInstance();//se obtiene la fabrica de daos
         this.userDAO = factory.getUserDAO();//inicializa el dao para usuarios
 
-        User user = new User("miguel diaz", "contraseña0",Rol.ADMINISTRADOR);
+        User user = new User("miguel diaz", HashSHA256.getHash("contraseña0"),Rol.ADMINISTRADOR);
         usersList.add(user);
-        user = new User("johan rodrigez", "contraseña1",Rol.DISENADOR);
+        user = new User("johan rodrigez", HashSHA256.getHash("contraseña1"),Rol.DISENADOR);
         usersList.add(user);
-        user = new User("luis sierra", "contraseña2",Rol.ADMINISTRADOR);
+        user = new User("luis sierra", HashSHA256.getHash("contraseña2"),Rol.ADMINISTRADOR);
         usersList.add(user);
-        user = new User("gustavo prieto", "contraseña3",Rol.DISENADOR);
+        user = new User("gustavo prieto", HashSHA256.getHash("contraseña3"),Rol.DISENADOR);
         usersList.add(user);
 
     }
