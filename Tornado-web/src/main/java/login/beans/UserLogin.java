@@ -10,9 +10,11 @@ import edu.unal.factory.ServiceFactory;
 import edu.unal.helper.HashSHA256;
 import edu.unal.model.Rol;
 import edu.unal.services.UserService;
+import java.awt.event.ActionEvent;
+import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -20,8 +22,8 @@ import javax.faces.context.FacesContext;
  * @author Johan
  */
 @ManagedBean
-@RequestScoped
-public class UserLogin {
+@SessionScoped
+public class UserLogin implements Serializable{
 
     private UserService userService;
     private String name;
@@ -34,26 +36,28 @@ public class UserLogin {
     }
 
     public String login() {
+
         UserDTO dto = new UserDTO(name, password);
-        System.out.println("name: " + name);
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userSession", name);
+
         try {
             UserDTO userToLog = userService.findByName(dto);
-            this.encrypthPassword();
+
             if (!userToLog.getPassword().equals(password)) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Datos incorrectos"));
-                return "login";
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Datos incorrectos", "Inténtalo de Nuevo"));
+                return "fail_login";
             } else {
                 if (userToLog.getRol() == Rol.ADMINISTRADOR) {
                     return "admin";
                 } else if (userToLog.getRol() == Rol.DISENADOR) {
-                    return "disenador";
+                    return "designer";
                 }
             }
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Datos incorrectos"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Datos incorrectos", "Inténtalo de Nuevo"));
         }
 
-        return "login";
+        return "fail_login";
     }
 
     public String getName() {
@@ -64,6 +68,13 @@ public class UserLogin {
         this.name = name;
     }
 
+
+/*
+    public void setPassword(String password) {
+        this.password = HashSHA256.getHash(password);;
+    }
+*/
+
     public String getPassword() {
         return password;
     }
@@ -71,10 +82,6 @@ public class UserLogin {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public void encrypthPassword() {
-        HashSHA256 hash = new HashSHA256();
-        this.password = hash.getHash(password);
-    }
-
+    
+    
 }

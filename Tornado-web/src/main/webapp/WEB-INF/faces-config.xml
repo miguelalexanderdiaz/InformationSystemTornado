@@ -8,21 +8,22 @@
         <navigation-case>
             <from-outcome>success</from-outcome>
             <to-view-id>/inventario/tabla_inventario.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
-        <navigation-case>
-            <from-outcome>login</from-outcome>
-            <to-view-id>/login/login.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-        <navigation-rule>
-        <from-view-id>/login/login.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>admin</from-outcome>
-            <to-view-id>/login/admin.xhtml</to-view-id>
+            <to-view-id>/users/admin.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>disenador</from-outcome>
-            <to-view-id>/login/disenador.xhtml</to-view-id>
+            <from-outcome>designer</from-outcome>
+            <to-view-id>/users/designer.xhtml</to-view-id>
         </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>fail_login</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        
     </navigation-rule>
+   
 </faces-config>

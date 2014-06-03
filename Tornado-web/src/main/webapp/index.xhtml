@@ -10,16 +10,37 @@
             <h:head>
                 <f:facet name="first">
                     <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                    <title>PrimeFaces</title>
+
+
+
                 </f:facet>
             </h:head>
 
             <h:body>
+                <p:growl id="growl" />
 
                 <p:layout fullPage="true">
 
                     <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                        Header
+                        <div align="right">
+                          <p:commandButton id="loginbtn" value="Iniciar Sesión" type="button" />  
+                        </div>
+                        
+                        <p:overlayPanel for="loginbtn" showEffect="slide" hideEffect="slide" dynamic="true" my="right top" at="right bottom" appendToBody="true">
+                            <h:panelGrid columns="2">
+                                <p:outputLabel for="usertxt" value="Usuario:"/>
+                                <p:inputText id="usertxt" value="#{userLogin.name}"/>
+
+                                <p:outputLabel for="usertxt" value="Contraseña:" />
+                                <p:password id="passtxt" value="#{userLogin.password}" />
+
+                                <h:outputLabel for="startbtn" value="" />
+                                <p:commandButton id="startbtn"  action="#{userLogin.login()}" update="growl" value="Ingresar" icon="ui-icon-key" ajax="false"/>
+                            </h:panelGrid>
+                        </p:overlayPanel>
+
+
+
                     </p:layoutUnit>
 
                     <p:layoutUnit position="south" size="50" closable="true" collapsible="true">
@@ -43,8 +64,8 @@
                     <p:layoutUnit position="center">
 
 
-                        <p:growl id="growl" />
 
+<!--
 
                         <h:panelGrid columns="2">
                             <h:outputLabel for="name" value="Nombre:" style="font-weight:bold"/>
@@ -62,7 +83,7 @@
                         <p:commandButton value="Guardar Usuario" actionListener="#{saveUser.saveUser(actionEvent)}" update="growl"/>
 
 
-
+-->
                     </p:layoutUnit>
 
                 </p:layout>
