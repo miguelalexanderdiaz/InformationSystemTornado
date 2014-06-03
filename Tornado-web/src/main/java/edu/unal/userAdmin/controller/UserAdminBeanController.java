@@ -33,8 +33,11 @@ public class UserAdminBeanController {
     private String userName;
     private String password;
     private Rol rol;
+    
+    
+    
 
-    public UserAdminBeanController(UserService userService) {
+    public UserAdminBeanController() {
         this.userService = SessionHandler.serviceFactory.getUserService();
         loadUsers();
     }

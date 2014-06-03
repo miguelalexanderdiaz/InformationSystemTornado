@@ -7,14 +7,14 @@ package edu.unal.sessionhandler;
 
 import edu.unal.factory.ServiceFactory;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author migueldiaz
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class SessionHandler {
 
     public static ServiceFactory serviceFactory;

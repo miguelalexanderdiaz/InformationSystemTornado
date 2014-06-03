@@ -10,7 +10,7 @@ import edu.unal.factory.ServiceFactory;
 import edu.unal.helper.HashSHA256;
 import edu.unal.model.Rol;
 import edu.unal.services.UserService;
-import java.awt.event.ActionEvent;
+import edu.unal.sessionhandler.SessionHandler;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -47,6 +47,7 @@ public class UserLogin implements Serializable{
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Datos incorrectos", "Inténtalo de Nuevo"));
                 return "fail_login";
             } else {
+                new SessionHandler();
                 if (userToLog.getRol() == Rol.ADMINISTRADOR) {
                     return "admin";
                 } else if (userToLog.getRol() == Rol.DISENADOR) {
@@ -69,19 +70,19 @@ public class UserLogin implements Serializable{
     }
 
 
-/*
-    public void setPassword(String password) {
-        this.password = HashSHA256.getHash(password);;
-    }
-*/
+
+    
+
 
     public String getPassword() {
         return password;
     }
-
+    
     public void setPassword(String password) {
-        this.password = password;
+        this.password = HashSHA256.getHash(password);;
     }
+
+
     
     
 }

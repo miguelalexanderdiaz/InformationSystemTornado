@@ -6,37 +6,40 @@
       xmlns:p="http://primefaces.org/ui">
 
     <f:view contentType="text/html">
-        <h:form>
-            <h:head>
-                <f:facet name="first">
-                    <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
 
 
 
-                </f:facet>
-            </h:head>
+            </f:facet>
+        </h:head>
 
-            <h:body>
+        <h:body>
+            <h:form id="principal">
                 <p:growl id="growl" />
 
                 <p:layout fullPage="true">
 
-                    <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                    <p:layoutUnit position="north" size="200"  >
                         <div align="right">
-                          <p:commandButton id="loginbtn" value="Iniciar Sesión" type="button" />  
+                            <p:commandButton id="loginbtn" value="Iniciar Sesión" type="button" />  
                         </div>
-                        
-                        <p:overlayPanel for="loginbtn" showEffect="slide" hideEffect="slide" dynamic="true" my="right top" at="right bottom" appendToBody="true">
-                            <h:panelGrid columns="2">
-                                <p:outputLabel for="usertxt" value="Usuario:"/>
-                                <p:inputText id="usertxt" value="#{userLogin.name}"/>
 
-                                <p:outputLabel for="usertxt" value="Contraseña:" />
-                                <p:password id="passtxt" value="#{userLogin.password}" />
+                        <p:overlayPanel for="loginbtn" showEffect="slide" hideEffect="slide" dynamic="false" my="right top" at="right bottom"  >
 
-                                <h:outputLabel for="startbtn" value="" />
-                                <p:commandButton id="startbtn"  action="#{userLogin.login()}" update="growl" value="Ingresar" icon="ui-icon-key" ajax="false"/>
-                            </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <p:outputLabel for="usertxt" value="Usuario:"/>
+                                    <p:inputText id="usertxt" value="#{userLogin.name}"/>
+
+                                    <p:outputLabel for="usertxt" value="Contraseña:" />
+                                    <p:password id="passtxt" value="#{userLogin.password}" />
+
+                                    <h:outputLabel for="startbtn" value="" />
+                                    <p:commandButton type="submit" id="startbtn"  action="#{userLogin.login}" update="growl" value="Ingresar" icon="ui-icon-key" ajax="false"/>
+                                </h:panelGrid>
+
                         </p:overlayPanel>
 
 
@@ -48,49 +51,20 @@
                     </p:layoutUnit>
 
                     <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
-                        <p:menu>
-                            <p:submenu label="Resources">
-                                <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
-                                <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
-                                <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
-                                <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
-                                <p:menuitem value="Dummie Tablas" action="#{navigation.indexToTables()}" />
-                                <p:menuitem value="Test usuarios" action="#{navigation.indexToUsersTable()}"/>
-                                <p:menuitem value="Test de login" action="#{navigation.indexToLogin()}" />
-                            </p:submenu>
-
-                        </p:menu>
+                        
                     </p:layoutUnit>
 
                     <p:layoutUnit position="center">
 
 
 
-<!--
 
-                        <h:panelGrid columns="2">
-                            <h:outputLabel for="name" value="Nombre:" style="font-weight:bold"/>
-                            <p:inputText id="name" value="#{saveUser.name}"  label="Nombre"/>
-
-                            <h:outputLabel for="password" value="Contraseña: " style="font-weight:bold"/>
-                            <p:password id="password" value="#{saveUser.password}" label="Contraseña" />
-
-                            <h:outputLabel for="rolTable" value="Escoja el rol: " style="font-weight:bold"/>
-                            <h:selectOneListbox id="rolTable" value="#{saveUser.rol}">
-                                <f:selectItems value="#{saveUser.roles}" />
-                            </h:selectOneListbox>
-                        </h:panelGrid>
-
-                        <p:commandButton value="Guardar Usuario" actionListener="#{saveUser.saveUser(actionEvent)}" update="growl"/>
-
-
--->
                     </p:layoutUnit>
 
                 </p:layout>
+            </h:form>
+        </h:body>
 
-            </h:body>
-        </h:form>
     </f:view>
 </html>
 
