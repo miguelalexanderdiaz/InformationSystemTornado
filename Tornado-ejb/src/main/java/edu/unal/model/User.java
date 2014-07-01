@@ -20,12 +20,22 @@ public class User {
     private String userName;
     private String password;
     private Rol rol;
+    //Salario por hora
+    private int salary;
 
-    public User(String userName, String password, Rol rol) {
+    public User(String userName, String password, Rol rol, int salary) {
         this.userName = userName;
         this.password = password;
         this.rol = rol;
-        
+        this.salary = salary;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
     }
 
     public String getId() {
@@ -63,6 +73,7 @@ public class User {
         str.append(" userName: ").append(this.userName);
         str.append(" password: ").append(this.password);
         str.append(" rol: ").append(this.rol);
+        str.append(" salary: ").append(this.salary);
         return str.toString();
     }
 

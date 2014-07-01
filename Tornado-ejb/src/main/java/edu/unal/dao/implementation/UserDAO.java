@@ -99,6 +99,7 @@ public class UserDAO implements UserDAOInterface {
         up.set("userName", newUser.getUserName());
         up.set("password", newUser.getPassword());
         up.set("rol", newUser.getRol());
+        up.set("salary", newUser.getSalary());
         
         mongoOp.findAndModify(q, up, User.class);
         Object aux[] = {oldUser.toString(),newUser.toString()};

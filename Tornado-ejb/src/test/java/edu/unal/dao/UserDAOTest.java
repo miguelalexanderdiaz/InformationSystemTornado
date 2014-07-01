@@ -44,13 +44,13 @@ public class UserDAOTest {
         DAOFactory factory = DAOFactory.getInstance();//se obtiene la fabrica de daos
         this.userDAO = factory.getUserDAO();//inicializa el dao para usuarios
 
-        User user = new User("miguel diaz", HashSHA256.getHash("contraseña0"),Rol.ADMINISTRADOR);
+        User user = new User("miguel diaz", HashSHA256.getHash("contraseña0"),Rol.ADMINISTRADOR, 30000);
         usersList.add(user);
-        user = new User("johan rodrigez", HashSHA256.getHash("contraseña1"),Rol.DISENADOR);
+        user = new User("johan rodrigez", HashSHA256.getHash("contraseña1"),Rol.DISENADOR, 30000);
         usersList.add(user);
-        user = new User("luis sierra", HashSHA256.getHash("contraseña2"),Rol.ADMINISTRADOR);
+        user = new User("luis sierra", HashSHA256.getHash("contraseña2"),Rol.ADMINISTRADOR, 30000);
         usersList.add(user);
-        user = new User("gustavo prieto", HashSHA256.getHash("contraseña3"),Rol.DISENADOR);
+        user = new User("gustavo prieto", HashSHA256.getHash("contraseña3"),Rol.DISENADOR, 30000);
         usersList.add(user);
 
     }

@@ -57,8 +57,9 @@ public class UserService {
     public List<UserDTO> findAll(){
         List<User> users = userDAO.findAll();
         List<UserDTO> foundUsers=new ArrayList<>();
-        UserDTO userDTOTemp = new UserDTO();
+
         for (User user : users) {
+            UserDTO userDTOTemp = new UserDTO();
             foundUsers.add(userDTOTemp.modeltToDTO(user));
         }
         return foundUsers;

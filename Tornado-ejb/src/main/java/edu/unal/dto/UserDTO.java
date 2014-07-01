@@ -17,11 +17,21 @@ public class UserDTO {
     private String userName;
     private String password;
     private Rol rol;
+    private int salary;
 
-    public UserDTO(String userName, String password, Rol rol) {
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    public UserDTO(String userName, String password, Rol rol, int salary) {
         this.userName = userName;
         this.password = password;
         this.rol = rol;
+        this.salary = salary;
     }
     public UserDTO(){}
 
@@ -36,7 +46,7 @@ public class UserDTO {
 
         User model = new User(
                 this.getUserName(),
-                this.getPassword(), this.getRol());
+                this.getPassword(), this.getRol(),this.getSalary());
         return model;
     }
 
@@ -44,6 +54,7 @@ public class UserDTO {
         this.userName = model.getUserName();
         this.password = model.getPassword();
         this.rol = model.getRol();
+        this.salary = model.getSalary();
         return this;
     }
 
@@ -77,6 +88,7 @@ public class UserDTO {
         str.append(" userName: ").append(this.userName);
         str.append(" password: ").append(this.password);
         str.append(" rol: ").append(this.rol);
+        str.append(" salary: ").append(this.salary);
         return str.toString();
     }
 

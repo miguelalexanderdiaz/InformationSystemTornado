@@ -46,24 +46,24 @@ public class UserServiceTest {
 
         ServiceFactory factory = ServiceFactory.getInstance();
         this.userService = factory.getUserService();
-        userService.deleteAll();
+       // userService.deleteAll();
         
-        User user = new User("miguel diaz", HashSHA256.getHash("contraseña0"), Rol.ADMINISTRADOR);
+        User user = new User("miguel diaz", HashSHA256.getHash("contraseña0"), Rol.ADMINISTRADOR, 30000);
         usersList.add(user);
-        user = new User("johan rodrigez", HashSHA256.getHash("contraseña1"), Rol.DISENADOR);
+        user = new User("johan rodrigez", HashSHA256.getHash("contraseña1"), Rol.DISENADOR, 20000);
         usersList.add(user);
-        user = new User("luis sierra", HashSHA256.getHash("contraseña2"), Rol.ADMINISTRADOR);
+        user = new User("luis sierra", HashSHA256.getHash("contraseña2"), Rol.ADMINISTRADOR, 30000);
         usersList.add(user);
-        user = new User("gustavo prieto", HashSHA256.getHash("contraseña3"), Rol.DISENADOR);
+        user = new User("gustavo prieto", HashSHA256.getHash("contraseña3"), Rol.DISENADOR, 20000);
         usersList.add(user);
 
     }
 
     @After
     public void tearDown() {
-        UserDTO user = new UserDTO("admin", HashSHA256.getHash("admin"), Rol.ADMINISTRADOR);
+        UserDTO user = new UserDTO("admin", HashSHA256.getHash("admin"), Rol.ADMINISTRADOR, 30000);
         userService.save(user);
-        user = new UserDTO("designer", HashSHA256.getHash("designer"), Rol.DISENADOR);
+        user = new UserDTO("designer", HashSHA256.getHash("designer"), Rol.DISENADOR, 20000);
         userService.save(user);
 
     }
@@ -117,7 +117,7 @@ public class UserServiceTest {
         Boolean flag = true;
 
         for (User u : usersList) {
-            UserDTO user = new UserDTO(u.getUserName(), HashSHA256.getHash(u.getPassword()), u.getRol());
+            UserDTO user = new UserDTO(u.getUserName(), HashSHA256.getHash(u.getPassword()), u.getRol(), u.getSalary());
             userService.save(user);
             if (!userService.findByName(user).getUserName().equals(user.getUserName())) {
                 flag = false;
@@ -131,7 +131,7 @@ public class UserServiceTest {
     public void testDeleteAll() {
         Boolean flag = true;
         for (User u : usersList) {
-            UserDTO user = new UserDTO(u.getUserName(), u.getPassword(), u.getRol());
+            UserDTO user = new UserDTO(u.getUserName(), u.getPassword(), u.getRol(), u.getSalary());
             userService.save(user);
         }
         userService.deleteAll();
@@ -146,7 +146,7 @@ public class UserServiceTest {
     public void testFindByName() {
         Boolean flag = true;
         for (User u : usersList) {
-            UserDTO user = new UserDTO(u.getUserName(), u.getPassword(), u.getRol());
+            UserDTO user = new UserDTO(u.getUserName(), u.getPassword(), u.getRol(), u.getSalary());
             userService.save(user);
             if (!userService.findByName(user).getUserName().equals(user.getUserName())) {
                 flag = false;
@@ -162,7 +162,7 @@ public class UserServiceTest {
         Boolean flag = true;
 
         for (User u : usersList) {
-            UserDTO user = new UserDTO(u.getUserName(), u.getPassword(), u.getRol());
+            UserDTO user = new UserDTO(u.getUserName(), u.getPassword(), u.getRol(), u.getSalary());
             userService.save(user);
         }
         System.out.println("LISTA DE PRUEBA=================================================");
@@ -172,10 +172,10 @@ public class UserServiceTest {
         }
         System.out.println("================================================================");
         for (User u : usersList) {
-            UserDTO user = new UserDTO(u.getUserName(), u.getPassword(), u.getRol());
+            UserDTO user = new UserDTO(u.getUserName(), u.getPassword(), u.getRol(), u.getSalary());
             userService.delete(user);
         }
-        if (!userService.findAll().isEmpty()) {
+        if (userService.findAll().size()!=2){
             flag = false;
         }
         System.out.println("LISTA DE PRUEBA vacia=================================================");
@@ -188,9 +188,9 @@ public class UserServiceTest {
         
     }
     public void testUpdate(){
-        UserDTO oldUser=new UserDTO("admin", "admin", Rol.ADMINISTRADOR);
+        UserDTO oldUser=new UserDTO("admin", "admin", Rol.ADMINISTRADOR, 20000);
         userService.save(oldUser);
-        UserDTO newUser=new UserDTO("admin1", "admin1", Rol.ADMINISTRADOR);
+        UserDTO newUser=new UserDTO("admin1", "admin1", Rol.ADMINISTRADOR, 20000);
         System.out.println("NAMO new user: "+newUser.toString());
         userService.update(oldUser, newUser);
         UserDTO aux=userService.findOne(newUser);
