@@ -32,17 +32,24 @@ public class UserAdminBeanController {
     private UserDTO selectedUser;
 
     //Arreglo de roles
-    private Rol roles[]=new Rol[2];
-    
+    private Rol roles[] = new Rol[2];
+
     //Datos del usuario a guardar
     private String userName;
     private String password;
     private int rol;
     private int salary;
-    
 
-    //Variable para el caso en que el salario ingresado sea invalido
-    private int oldSalary;
+    //Rol de la lista en la datatable
+    private int rolEdit;
+
+    public int getRolEdit() {
+        return rolEdit;
+    }
+
+    public void setRolEdit(int rolEdit) {
+        this.rolEdit = rolEdit;
+    }
 
     public int getSalary() {
         return salary;
@@ -122,7 +129,8 @@ public class UserAdminBeanController {
 
     public void onEdit(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Usuario Editado", ((UserDTO) event.getObject()).toString());
-        UserDTO auxDTO=(UserDTO) event.getObject();
+        UserDTO auxDTO = (UserDTO) event.getObject();
+        auxDTO.setRol(roles[rolEdit]);
         if (auxDTO.getSalary() < 0) {
             msg = new FacesMessage("Salario inválido", ((UserDTO) event.getObject()).toString());
             FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -150,10 +158,10 @@ public class UserAdminBeanController {
         userService.save(dto);
         loadUsers();
     }
-    
-    public void setFixedRoles(){
-        roles[0]=Rol.ADMINISTRADOR;
-        roles[1]=Rol.DISENADOR;
+
+    public void setFixedRoles() {
+        roles[0] = Rol.ADMINISTRADOR;
+        roles[1] = Rol.DISENADOR;
     }
 
     public Rol[] getRoles() {
