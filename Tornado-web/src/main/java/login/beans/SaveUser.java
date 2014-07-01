@@ -29,6 +29,16 @@ public class SaveUser {
     private String name;
     private String password;
     private Rol rol;
+    private int salary;
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+    
 
     public Rol getRol() {
         return rol;
@@ -51,7 +61,7 @@ public class SaveUser {
     
     public void saveUser(ActionEvent actionEvent) {
         FacesContext context = FacesContext.getCurrentInstance();
-        UserDTO dto = new UserDTO(name, password,rol);
+        UserDTO dto = new UserDTO(name, password,rol,salary);
         userService.save(dto);
         context.addMessage(null, new FacesMessage("Almacenado en la base de datos"+dto.toString()));
     }

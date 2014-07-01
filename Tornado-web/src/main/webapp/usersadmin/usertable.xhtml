@@ -68,6 +68,17 @@
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
+                            
+                            <p:column headerText="Salario por hora" >
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{inventory_item.salary}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{inventory_item.salary}" style="width:100%" />
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
 
                             <p:column id="controlColumn" style="width:5%">
                                 <p:rowEditor />
@@ -86,6 +97,9 @@
 
                                 <h:outputLabel value="Rol" for=":form:input_measure" />
                                 <p:inputText id="input_measure" value="#{userAdminBeanController.rol}"/>
+                                
+                                <h:outputLabel value="Salary" for=":form:input_sal" />
+                                <p:inputText id="input_sal" value="#{userAdminBeanController.salary}"/>
 
                             </h:panelGrid>
 
