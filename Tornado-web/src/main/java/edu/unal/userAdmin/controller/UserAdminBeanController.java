@@ -31,10 +31,15 @@ public class UserAdminBeanController {
     private final UserService userService;
     private UserDTO selectedUser;
 
+    //Arreglo de roles
+    private Rol roles[]=new Rol[2];
+    
+    //Datos del usuario a guardar
     private String userName;
     private String password;
-    private Rol rol;
+    private int rol;
     private int salary;
+    
 
     //Variable para el caso en que el salario ingresado sea invalido
     private int oldSalary;
@@ -50,6 +55,7 @@ public class UserAdminBeanController {
     public UserAdminBeanController() {
         this.userService = SessionHandler.serviceFactory.getUserService();
         loadUsers();
+        setFixedRoles();
     }
 
     public void loadUsers() {
@@ -73,11 +79,11 @@ public class UserAdminBeanController {
         this.password = hash.getHash(password);
     }
 
-    public Rol getRol() {
+    public int getRol() {
         return rol;
     }
 
-    public void setRol(Rol rol) {
+    public void setRol(int rol) {
         this.rol = rol;
     }
 
@@ -140,9 +146,17 @@ public class UserAdminBeanController {
     }
 
     public void saveUser() {
-        UserDTO dto = new UserDTO(userName, password, rol, salary);
+        UserDTO dto = new UserDTO(userName, password, roles[rol], salary);
         userService.save(dto);
         loadUsers();
     }
+    
+    public void setFixedRoles(){
+        roles[0]=Rol.ADMINISTRADOR;
+        roles[1]=Rol.DISENADOR;
+    }
 
+    public Rol[] getRoles() {
+        return roles;
+    }
 }
