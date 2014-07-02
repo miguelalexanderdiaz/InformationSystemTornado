@@ -18,7 +18,7 @@
 
                 <p:layout fullPage="true">
                     <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                        Diseñador
+                        Recursos humanos
                     </p:layoutUnit>
 
 
@@ -30,14 +30,9 @@
                     <p:layoutUnit position="west" size="250" header="Menú" collapsible="true">
 
                         <p:menu>
-                            <p:submenu label="Diseño">
-                                <p:menuitem value="Crear estimación" action="#{adminBeanUI.goToEstimation()}" update=":form:myPanel"/>
-                                
-                                <p:menuitem value="Buscar projectos" action="#{adminBeanUI.goToProjects()}" update=":form:myPanel" />
-                        
+                            <p:submenu label="Usuarios">
+                                <p:menuitem value="Administración de Usuarios" action="#{adminBeanUI.goToUsers()}" update=":form:myPanel" />
                             </p:submenu>
-
-
                         </p:menu>
 
                     </p:layoutUnit>

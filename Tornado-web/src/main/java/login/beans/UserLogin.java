@@ -52,6 +52,8 @@ public class UserLogin implements Serializable{
                     return "admin";
                 } else if (userToLog.getRol() == Rol.DISENADOR) {
                     return "designer";
+                } else if (userToLog.getRol() == Rol.RECURSOS_HUMANOS) {
+                    return "resourcesh";
                 }
             }
         } catch (Exception e) {

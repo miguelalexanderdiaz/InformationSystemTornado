@@ -67,6 +67,7 @@
                     <p:selectOneListbox id="basic2" value="#{userAdminBeanController.rolEdit}" style="width:100%">
                         <f:selectItem itemLabel="Administrador" itemValue="0" />
                         <f:selectItem itemLabel="Diseñador" itemValue="1" />
+                        <f:selectItem itemLabel="Recursos humanos" itemValue="2" />
                     </p:selectOneListbox>
                 </f:facet>
             </p:cellEditor>
@@ -102,6 +103,7 @@
             <p:selectOneListbox id="basic" value="#{userAdminBeanController.rol}">
                 <f:selectItem itemLabel="Administrador" itemValue="0" />
                 <f:selectItem itemLabel="Diseñador" itemValue="1" />
+                <f:selectItem itemLabel="Recursos humanos" itemValue="2" />
             </p:selectOneListbox>
 
             <h:outputLabel value="Salary" for=":form:input_sal" />

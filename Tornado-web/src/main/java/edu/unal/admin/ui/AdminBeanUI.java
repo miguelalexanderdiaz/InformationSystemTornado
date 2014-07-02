@@ -18,7 +18,7 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class AdminBeanUI {
 
-    private String activePage="inventory";
+    private String activePage = "inventory";
     private String goToPage = "/inventory/inventory";
 
     /**
@@ -30,8 +30,7 @@ public class AdminBeanUI {
     public String showPage() {
         if (activePage.equals("inventory")) {
             return "/inventory/inventory";
-        }
-        else if(activePage.equals("users_admin")){
+        } else if (activePage.equals("users_admin")) {
             return "/users/designer";
         }
         return "/inventory/inventory";
@@ -52,14 +51,21 @@ public class AdminBeanUI {
     public void setGoToPage(String goToPage) {
         this.goToPage = goToPage;
     }
-    
 
-    public void goToInventory(){
-        goToPage="/inventory/inventory";
+    public void goToInventory() {
+        goToPage = "/inventory/inventory";
     }
-    
-    public void goToUsers(){
-        goToPage="/usersadmin/usertable";
+
+    public void goToUsers() {
+        goToPage = "/usersadmin/usertable";
+    }
+
+    public void goToEstimation() {
+        goToPage = "/designer/estimation";
+    }
+
+    public void goToProjects() {
+        goToPage = "/designer/viewprojects";
     }
 
 }

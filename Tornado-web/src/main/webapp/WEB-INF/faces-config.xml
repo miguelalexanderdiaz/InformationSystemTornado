@@ -18,7 +18,10 @@
             <from-outcome>designer</from-outcome>
             <to-view-id>/users/designer.xhtml</to-view-id>
         </navigation-case>
-        
+        <navigation-case>
+            <from-outcome>resourcesh</from-outcome>
+            <to-view-id>/users/resourcesh.xhtml</to-view-id>
+        </navigation-case>
         <navigation-case>
             <from-outcome>fail_login</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>

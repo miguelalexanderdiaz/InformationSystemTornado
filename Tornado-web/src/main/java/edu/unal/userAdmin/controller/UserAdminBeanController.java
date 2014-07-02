@@ -32,7 +32,7 @@ public class UserAdminBeanController {
     private UserDTO selectedUser;
 
     //Arreglo de roles
-    private Rol roles[] = new Rol[2];
+    private Rol roles[] = new Rol[3];
 
     //Datos del usuario a guardar
     private String userName;
@@ -154,14 +154,20 @@ public class UserAdminBeanController {
     }
 
     public void saveUser() {
-        UserDTO dto = new UserDTO(userName, password, roles[rol], salary);
-        userService.save(dto);
-        loadUsers();
+        if (salary < 0) {
+            FacesMessage msg = new FacesMessage("Salario inválido");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } else {
+            UserDTO dto = new UserDTO(userName, password, roles[rol], salary);
+            userService.save(dto);
+            loadUsers();
+        }
     }
 
     public void setFixedRoles() {
         roles[0] = Rol.ADMINISTRADOR;
         roles[1] = Rol.DISENADOR;
+        roles[2] = Rol.RECURSOS_HUMANOS;
     }
 
     public Rol[] getRoles() {
