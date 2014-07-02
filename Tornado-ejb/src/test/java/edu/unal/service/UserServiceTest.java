@@ -65,7 +65,8 @@ public class UserServiceTest {
         userService.save(user);
         user = new UserDTO("designer", HashSHA256.getHash("designer"), Rol.DISENADOR, 20000);
         userService.save(user);
-
+        user = new UserDTO("resources", HashSHA256.getHash("resources"), Rol.RECURSOS_HUMANOS, 20000);
+        userService.save(user);
     }
 
 //    @Test
@@ -175,7 +176,7 @@ public class UserServiceTest {
             UserDTO user = new UserDTO(u.getUserName(), u.getPassword(), u.getRol(), u.getSalary());
             userService.delete(user);
         }
-        if (userService.findAll().size()!=2){
+        if (userService.findAll().size()!=3){
             flag = false;
         }
         System.out.println("LISTA DE PRUEBA vacia=================================================");

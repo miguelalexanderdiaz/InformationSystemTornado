@@ -11,7 +11,7 @@ package edu.unal.model;
  * @author Johan
  */
 public enum Rol {
-    ADMINISTRADOR("administrador"),DISENADOR("disenador");
+    ADMINISTRADOR("administrador"),DISENADOR("disenador"),RECURSOS_HUMANOS("recursos humanos");
     private String rol;
     private Rol(String value){
         this.rol=value;
