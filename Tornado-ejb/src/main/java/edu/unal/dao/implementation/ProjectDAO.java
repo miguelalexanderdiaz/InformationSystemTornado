@@ -37,7 +37,7 @@ public class ProjectDAO implements ProjectDAOInterface {
 
     @Override
     public void delete(Project project) {
-        mongoOp.remove( findOne(project));
+        mongoOp.remove(findOne(project));
         log.log(Level.INFO, "project deleted // \t{0}", project.getCode());
     }
 
@@ -48,23 +48,25 @@ public class ProjectDAO implements ProjectDAOInterface {
 
     @Override
     public List<Project> findAll() {
-        List<Project> inventory =mongoOp.findAll(Project.class);
+        List<Project> inventory = mongoOp.findAll(Project.class);
         return inventory;
     }
 
     @Override
     public void deleteAll() {
         List<Project> toDelete = mongoOp.findAll(Project.class);
-        for(Project item: toDelete){
+        for (Project item : toDelete) {
             this.delete(item);
         }
     }
 
     @Override
     public Project findOne(Project project) {
-        Query q =new Query();
+        Query q = new Query();
         q.addCriteria(Criteria.where("code").is(project.getCode()));
+        log.log(Level.INFO, "project found // \t{0}", project.getCode());
         return mongoOp.findOne(q, Project.class);
+
     }
 
 }

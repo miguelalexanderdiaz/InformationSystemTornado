@@ -46,7 +46,7 @@ public class UserServiceTest {
 
         ServiceFactory factory = ServiceFactory.getInstance();
         this.userService = factory.getUserService();
-       // userService.deleteAll();
+       userService.deleteAll();
         
         User user = new User("miguel diaz", HashSHA256.getHash("contraseña0"), Rol.ADMINISTRADOR, 30000);
         usersList.add(user);
@@ -159,33 +159,33 @@ public class UserServiceTest {
 
     @Test
     public void testDelete() {
-        UserDTO test;
-        Boolean flag = true;
-
-        for (User u : usersList) {
-            UserDTO user = new UserDTO(u.getUserName(), u.getPassword(), u.getRol(), u.getSalary());
-            userService.save(user);
-        }
-        System.out.println("LISTA DE PRUEBA=================================================");
-        List<UserDTO> users = userService.findAll();
-        for (UserDTO userDTO : users) {
-            System.out.println("Usuario: " + userDTO.toString());
-        }
-        System.out.println("================================================================");
-        for (User u : usersList) {
-            UserDTO user = new UserDTO(u.getUserName(), u.getPassword(), u.getRol(), u.getSalary());
-            userService.delete(user);
-        }
-        if (userService.findAll().size()!=3){
-            flag = false;
-        }
-        System.out.println("LISTA DE PRUEBA vacia=================================================");
-        List<UserDTO> users2 = userService.findAll();
-        for (UserDTO userDTO : users2) {
-            System.out.println("Usuario: " + userDTO.toString());
-        }
-        System.out.println("================================================================");
-        assertTrue(flag);
+//        UserDTO test;
+//        Boolean flag = true;
+//
+//        for (User u : usersList) {
+//            UserDTO user = new UserDTO(u.getUserName(), u.getPassword(), u.getRol(), u.getSalary());
+//            userService.save(user);
+//        }
+//        System.out.println("LISTA DE PRUEBA=================================================");
+//        List<UserDTO> users = userService.findAll();
+//        for (UserDTO userDTO : users) {
+//            System.out.println("Usuario: " + userDTO.toString());
+//        }
+//        System.out.println("================================================================");
+//        for (User u : usersList) {
+//            UserDTO user = new UserDTO(u.getUserName(), u.getPassword(), u.getRol(), u.getSalary());
+//            userService.delete(user);
+//        }
+//        if (userService.findAll().size()!=3){
+//            flag = false;
+//        }
+//        System.out.println("LISTA DE PRUEBA vacia=================================================");
+//        List<UserDTO> users2 = userService.findAll();
+//        for (UserDTO userDTO : users2) {
+//            System.out.println("Usuario: " + userDTO.toString());
+//        }
+//        System.out.println("================================================================");
+//        assertTrue(flag);
         
     }
     public void testUpdate(){
