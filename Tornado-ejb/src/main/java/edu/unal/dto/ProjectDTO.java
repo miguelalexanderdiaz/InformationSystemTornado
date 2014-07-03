@@ -16,7 +16,6 @@ import java.util.ArrayList;
  */
 public class ProjectDTO {
 
-    private String id;
     private String code;
     private ArrayList<InventoryItem> items;
     private ArrayList<User> users;
@@ -64,14 +63,6 @@ public class ProjectDTO {
 
     public void setCode(String nombre) {
         this.code = nombre;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public ArrayList<InventoryItem> getItems() {
