@@ -67,6 +67,7 @@ public class InventoryItemDAO implements InventoryItemDAOInterface{
         up.set("code", newItem.getCode());
         up.set("description", newItem.getDescription());
         up.set("measure", newItem.getMeasure());
+        up.set("quantity", newItem.getQuantity());
         
         mongoOp.findAndModify(q, up, InventoryItem.class);
         Object aux [] = {oldItem.toString(),newItem.toString()};

@@ -20,10 +20,8 @@ public class InventoryItem {
     private String code;
     private String description;
     private String measure;
-    
-    
-    
-
+    private int quantity;
+ 
     /*
     //saldo
     private Integer balance_units;
@@ -38,13 +36,21 @@ public class InventoryItem {
     
     
     
-    public InventoryItem(String code, String description, String measure){
+    public InventoryItem(String code, String description, String measure, int quantity){
         this.code=code;
         this.description=description;
         this.measure=measure;
+        this.quantity=quantity;
     }
-    
-    
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+        
     public String getId() {
         return id;
     }
@@ -80,6 +86,7 @@ public class InventoryItem {
         str.append(" code ").append(this.code);
         str.append(" description ").append(this.description);
         str.append(" measure ").append(this.measure);
+        str.append(" quantity ").append(this.quantity);
         return str.toString();
     }
     

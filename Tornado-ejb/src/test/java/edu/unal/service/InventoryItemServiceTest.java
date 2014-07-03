@@ -44,7 +44,7 @@ public class InventoryItemServiceTest {
         inventoryService.deleteAll();
         for (int i = 0; i < 20; i++) {
             InventoryItemDTO dto;            
-            dto = new InventoryItemDTO(String.valueOf(i), "una descripcion" + i, "alguna medida" + i);
+            dto = new InventoryItemDTO(String.valueOf(i), "una descripcion" + i, "alguna medida" + i,i);
             inventoryList.add(dto);
         }
         
@@ -54,23 +54,23 @@ public class InventoryItemServiceTest {
     public void tearDown() {  
     }
     
-//    @Test
-//    public void testSave() {
-//        try {
-//            for (InventoryItemDTO dto : inventoryList) {
-//                inventoryService.save(dto);
-//            }
-//        } catch (Exception e) {
-//            assertTrue(false);
-//        }
-//        assertTrue(true);
-//    }
+    @Test
+    public void testSave() {
+        try {
+            for (InventoryItemDTO dto : inventoryList) {
+                inventoryService.save(dto);
+            }
+        } catch (Exception e) {
+            assertTrue(false);
+        }
+        assertTrue(true);
+    }
     
     @Test
     public void testUpdate() {
         InventoryItemDTO oldItem=inventoryList.get(0);
         inventoryService.save(oldItem);
-        InventoryItemDTO newItem=new InventoryItemDTO("A1115", "modificación del dto", "medida dto modificado");
+        InventoryItemDTO newItem=new InventoryItemDTO("A1115", "modificación del dto", "medida dto modificado",10);
         inventoryService.update(oldItem, newItem);
         //testSave();
         InventoryItemDTO aux=inventoryService.findOne(newItem);
