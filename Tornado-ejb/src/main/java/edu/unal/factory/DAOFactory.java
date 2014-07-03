@@ -6,6 +6,7 @@
 package edu.unal.factory;
 
 import edu.unal.dao.implementation.InventoryItemDAO;
+import edu.unal.dao.implementation.ProjectDAO;
 import edu.unal.dao.implementation.UserDAO;
 
 
@@ -22,6 +23,7 @@ public class DAOFactory {
     private static final DAOFactory INSTANCE = new DAOFactory();
     private UserDAO userDAO;
     private InventoryItemDAO inventoryDAO;
+    private ProjectDAO projectDAO;
 
     public static DAOFactory getInstance() {
         return INSTANCE;
@@ -39,5 +41,12 @@ public class DAOFactory {
             this.inventoryDAO=new InventoryItemDAO();
         }
         return this.inventoryDAO;
+    }
+    
+    public ProjectDAO getProjectDAO(){
+        if(this.projectDAO==null){
+            this.projectDAO=new ProjectDAO();
+        }
+        return this.projectDAO;
     }
 }
