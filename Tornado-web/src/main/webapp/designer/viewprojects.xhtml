@@ -1,21 +1,86 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+            <h:outputLabel value="Ingrese el codigo del proyecto: " for="input_code" />
+            <h:inputText id="input_code" value="#{searchProjectController.code}"/>
 
-    <h:head>
-        <title>ver projectos?</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </h:head>
-    <body>
-        <div>ver projectos?</div>
-    </body>
-</html>
+
+        <p:commandButton value="Buscar" actionListener="#{searchProjectController.search()}" update=":form:inventory" />
+
+        <p> </p>
+        <p:outputLabel value="Lista de empleados del proyecto:"  for="user_table" />
+
+        <p:menubar id="user_table">
+            <p:submenu label="Administración" icon="ui-icon-person">
+                <p:menuitem value="Eliminar" icon="ui-icon-trash" actionListener="#{searchProjectController.deleteSelectedUsers()}" update=":form:inventory" />
+                <p:separator />
+                <p:menuitem value="Quit" url="#" />
+            </p:submenu>
+            <p:submenu label="Edit" icon="ui-icon-pencil">
+                <p:menuitem value="Undo" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+                <p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+            </p:submenu>
+        </p:menubar>
+
+        
+
+        <p:growl id="messages" showDetail="true"/>
+
+
+
+     
+        <p:dataTable var="inventory_item" value="#{searchProjectController.userList}" id="inventory"  selection="#{searchProjectController.selectedUserList}" rowKey="#{inventory_item.userName}" editable="false"  >
+
+
+        <p:column selectionMode="multiple" style="width:2%;text-align:center"/>
+
+ 
+        <p:ajax event="rowEditCancel" listener="#{userAdminBeanController.onCancel}" update=":form:messages" />
+
+        <p:column headerText="nombre" >
+            <p:cellEditor>
+                <f:facet name="output">
+                    <h:outputText value="#{inventory_item.userName}" />
+                </f:facet>
+                <f:facet name="input">
+                    <p:inputText value="#{inventory_item.userName}" style="width:100%"/>
+                </f:facet>
+            </p:cellEditor>
+        </p:column>
+
+        <p:column headerText="Rol" >
+            <p:cellEditor>
+                <f:facet name="output">
+                    <h:outputText value="#{inventory_item.rol}" />
+                </f:facet>
+                <f:facet name="input">
+                    <p:selectOneListbox id="basic2" value="#{userAdminBeanController.rolEdit}" style="width:100%">
+                        <f:selectItem itemLabel="Administrador" itemValue="0" />
+                        <f:selectItem itemLabel="Diseñador" itemValue="1" />
+                        <f:selectItem itemLabel="Recursos humanos" itemValue="2" />
+                    </p:selectOneListbox>
+                </f:facet>
+            </p:cellEditor>
+        </p:column>
+
+        <p:column headerText="Salario por hora" >
+            <p:cellEditor>
+                <f:facet name="output">
+                    <h:outputText value="#{inventory_item.salary}" />
+                </f:facet>
+                <f:facet name="input">
+                    <p:inputText value="#{inventory_item.salary}" style="width:100%"/>
+                </f:facet>
+            </p:cellEditor>
+        </p:column>
+
+        <p:column id="controlColumn" style="width:5%">
+            <p:rowEditor />
+        </p:column>
+
+    </p:dataTable>
+</ui:composition>
