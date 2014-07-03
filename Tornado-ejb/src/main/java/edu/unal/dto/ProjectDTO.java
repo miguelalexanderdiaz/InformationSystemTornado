@@ -21,13 +21,17 @@ public class ProjectDTO {
     private ArrayList<User> users;
     private String fecha;
     private String descripcion;
+    private int cantidadNecesaria[];
+    private int horasDeTrabajo[];
 
-    public ProjectDTO(String nombre, ArrayList<InventoryItem> items, ArrayList<User> users, String fecha, String descripcion) {
+    public ProjectDTO(String nombre, ArrayList<InventoryItem> items, ArrayList<User> users, String fecha, String descripcion, int cantidadNecesaria[], int horasDeTrabajo[]) {
         this.code = nombre;
         this.items = items;
         this.users = users;
         this.fecha = fecha;
         this.descripcion = descripcion;
+        this.cantidadNecesaria = cantidadNecesaria;
+        this.horasDeTrabajo = horasDeTrabajo;
     }
 
     public ProjectDTO() {
@@ -37,7 +41,7 @@ public class ProjectDTO {
         Project model = new Project(this.getCode(),
                 this.getItems(),
                 this.getUsers(),
-                this.getFecha(), this.getDescripcion());
+                this.getFecha(), this.getDescripcion(),this.getCantidadNecesaria(), this.getHorasDeTrabajo());
         return model;
     }
 
@@ -46,7 +50,25 @@ public class ProjectDTO {
         this.items = model.getItems();
         this.users = model.getUsers();
         this.fecha = model.getFecha();
+        this.cantidadNecesaria = model.getCantidadNecesaria();
+        this.horasDeTrabajo = model.getHorasDeTrabajo();
         return this;
+    }
+
+    public int[] getHorasDeTrabajo() {
+        return horasDeTrabajo;
+    }
+
+    public void setHorasDeTrabajo(int[] horasDeTrabajo) {
+        this.horasDeTrabajo = horasDeTrabajo;
+    }
+    
+    public int[] getCantidadNecesaria() {
+        return cantidadNecesaria;
+    }
+
+    public void setCantidadNecesaria(int[] cantidadNecesaria) {
+        this.cantidadNecesaria = cantidadNecesaria;
     }
 
     public String getDescripcion() {

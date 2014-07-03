@@ -4,42 +4,39 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
-    
-            <h:outputLabel value="Ingrese el codigo del proyecto: " for="input_code" />
-            <h:inputText id="input_code" value="#{searchProjectController.code}"/>
+
+    <h:outputLabel value="Ingrese el codigo del proyecto: " for="input_code" />
+    <h:inputText id="input_code" value="#{searchProjectController.code}"/>
+
+    <p:commandButton value="Buscar" actionListener="#{searchProjectController.search()}" update=":form:inventory :form:inventory2 :form:costo_total"/>
 
 
-        <p:commandButton value="Buscar" actionListener="#{searchProjectController.search()}" update=":form:inventory" />
+    <p></p>
+    <p></p>
+    <p:outputLabel value="Lista de empleados del proyecto:"  for="user_table" />
 
-        <p> </p>
-        <p:outputLabel value="Lista de empleados del proyecto:"  for="user_table" />
-
-        <p:menubar id="user_table">
-            <p:submenu label="Administración" icon="ui-icon-person">
-                <p:menuitem value="Eliminar" icon="ui-icon-trash" actionListener="#{searchProjectController.deleteSelectedUsers()}" update=":form:inventory" />
-                <p:separator />
-                <p:menuitem value="Quit" url="#" />
-            </p:submenu>
-            <p:submenu label="Edit" icon="ui-icon-pencil">
-                <p:menuitem value="Undo" url="#" icon="ui-icon-arrowreturnthick-1-w" />
-                <p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e" />
-            </p:submenu>
-        </p:menubar>
-
-        
-
-        <p:growl id="messages" showDetail="true"/>
+    <p:menubar id="user_table">
+        <p:submenu label="Administración" icon="ui-icon-person">
+            <p:menuitem value="Eliminar" icon="ui-icon-trash" actionListener="#{searchProjectController.deleteSelectedUsers()}" update=":form:inventory" />
+            <p:separator />
+            <p:menuitem value="Quit" url="#" />
+        </p:submenu>
+        <p:submenu label="Edit" icon="ui-icon-pencil">
+            <p:menuitem value="Undo" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+            <p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+        </p:submenu>
+    </p:menubar>
 
 
 
-     
-        <p:dataTable var="inventory_item" value="#{searchProjectController.userList}" id="inventory"  selection="#{searchProjectController.selectedUserList}" rowKey="#{inventory_item.userName}" editable="false"  >
+    <p:growl id="messages" showDetail="true"/>
+
+
+    <p:dataTable var="inventory_item" value="#{searchProjectController.usersC}" id="inventory"  selection="#{searchProjectController.selectUC}" rowKey="#{inventory_item.userName}" editable="false"  >
 
 
         <p:column selectionMode="multiple" style="width:2%;text-align:center"/>
 
- 
-        <p:ajax event="rowEditCancel" listener="#{userAdminBeanController.onCancel}" update=":form:messages" />
 
         <p:column headerText="nombre" >
             <p:cellEditor>
@@ -78,9 +75,108 @@
             </p:cellEditor>
         </p:column>
 
+        <p:column headerText="Horas en el proyecto" >
+            <p:cellEditor>
+                <f:facet name="output">
+                    <h:outputText value="#{inventory_item.horas}" />
+                </f:facet>
+                <f:facet name="input">
+                    <p:inputText value="#{inventory_item.horas}" style="width:100%"/>
+                </f:facet>
+            </p:cellEditor>
+        </p:column>
+
         <p:column id="controlColumn" style="width:5%">
             <p:rowEditor />
         </p:column>
 
     </p:dataTable>
+
+
+    <p> </p>
+    <p> </p>
+    <p:outputLabel value="Lista de inventario del proyecto:"  for="inv_table" />
+    <p:menubar id="inv_table">
+        <p:submenu label="Administración" icon="ui-icon-person">
+            <p:menuitem value="Eliminar" icon="ui-icon-trash" actionListener="#{searchProjectController.deleteSelectedItems()}" update=":form:inventory2" />
+            <p:separator />
+            <p:menuitem value="Quit" url="#" />
+        </p:submenu>
+        <p:submenu label="Edit" icon="ui-icon-pencil">
+            <p:menuitem value="Undo" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+            <p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+        </p:submenu>
+    </p:menubar>
+
+    <p:dataTable var="inventory_item2" value="#{searchProjectController.inventoryListConCantidad}" id="inventory2"  selection="#{searchProjectController.selectedInvConCant}" rowKey="#{inventory_item2.code}" editable="false"  >
+
+        <p:column selectionMode="multiple" style="width:2%;text-align:center"/>
+
+
+
+        <p:column headerText="Codigo" >
+            <p:cellEditor>
+                <f:facet name="output">
+                    <h:outputText value="#{inventory_item2.code}" />
+                </f:facet>
+                <f:facet name="input">
+                    <p:inputText value="#{inventory_item2.code}" style="width:100%"/>
+                </f:facet>
+            </p:cellEditor>
+        </p:column>
+
+        <p:column headerText="Descripcion" >
+            <p:cellEditor>
+                <f:facet name="output">
+                    <h:outputText value="#{inventory_item2.description}" />
+                </f:facet>
+                <f:facet name="input">
+                    <p:inputText value="#{inventory_item2.description}" style="width:100%" />
+                </f:facet>
+            </p:cellEditor>
+        </p:column>
+
+
+        <p:column headerText="Medida" >
+            <p:cellEditor>
+                <f:facet name="output">
+                    <h:outputText value="#{inventory_item2.measure}" />
+                </f:facet>
+                <f:facet name="input">
+                    <p:inputText value="#{inventory_item2.measure}" style="width:100%" />
+                </f:facet>
+            </p:cellEditor>
+        </p:column>
+
+        <p:column headerText="Cantidad en bodega" >
+            <p:cellEditor>
+                <f:facet name="output">
+                    <h:outputText value="#{inventory_item2.quantity}" />
+                </f:facet>
+                <f:facet name="input">
+                    <p:inputText value="#{inventory_item2.quantity}" style="width:100%" />
+                </f:facet>
+            </p:cellEditor>
+        </p:column>
+
+        <p:column headerText="Cantidad usada" >
+            <p:cellEditor>
+                <f:facet name="output">
+                    <h:outputText value="#{inventory_item2.cantidadNecesaria}" />
+                </f:facet>
+                <f:facet name="input">
+                    <p:inputText value="#{inventory_item2.cantidadNecesaria}" style="width:100%" />
+                </f:facet>
+            </p:cellEditor>
+        </p:column>
+
+        <p:column id="controlColumn2" style="width:5%">
+            <p:rowEditor />
+        </p:column>
+
+    </p:dataTable>   
+
+        <p> </p>
+    <h:outputLabel value="Valor total estimado:"  for="costoTotal" />
+    <h:outputText value="#{searchProjectController.precio}" id="costo_total" />
 </ui:composition>

@@ -9,6 +9,7 @@ import edu.unal.dto.InventoryItemDTO;
 import edu.unal.dto.ProjectDTO;
 import edu.unal.dto.UserDTO;
 import edu.unal.model.InventoryItem;
+import edu.unal.model.Rol;
 import edu.unal.model.User;
 import edu.unal.services.ProjectService;
 import edu.unal.sessionhandler.SessionHandler;
@@ -31,14 +32,18 @@ public class SearchProjectController {
 
     //Codigo para buscar el proyecto
     private String code;
-    private ProjectDTO project;
+    private ProjectDTO project = new ProjectDTO();
     private final ProjectService projectService;
-    private ArrayList<UserDTO> userList=new ArrayList<>();
-    private ArrayList<UserDTO> selectedUserList=new ArrayList<>();
-    private ArrayList<InventoryItemDTO> inventoryList=new ArrayList<>();
-    private ArrayList<InventoryItemDTO> selectedInventoryList=new ArrayList<>();
+    private ArrayList<UserDTO> userList = new ArrayList<>();
+    private ArrayList<UserConHoras> usersC = new ArrayList<>();
+    private ArrayList<UserConHoras> selectUC = new ArrayList<>();
+    private ArrayList<UserDTO> selectedUserList = new ArrayList<>();
+    private ArrayList<InventoryItemDTO> inventoryList = new ArrayList<>();
+    private ArrayList<InventoryCant> inventoryListConCantidad = new ArrayList<>();
+    private ArrayList<InventoryCant> selectedInvConCant = new ArrayList<>();
     private UserDTO selectedUser;
     private InventoryItemDTO selectedItem;
+    private int precio;
 
     /**
      * Creates a new instance of SearchProjectController
@@ -48,68 +53,111 @@ public class SearchProjectController {
     }
 
     public void search() {
-        ProjectDTO toSearch = new ProjectDTO(code, null, null, null, null);
-        try {
-             project = projectService.findOne(toSearch);
-        } catch (Exception e) {
-            FacesMessage msg = new FacesMessage("El proyecto con codigo " + code + " no existe.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+        ProjectDTO toSearch = new ProjectDTO(code, null, null, null, null, null, null);
+        userList = new ArrayList<>();
+        inventoryList = new ArrayList<>();
+        inventoryListConCantidad = new ArrayList<>();
+        usersC = new ArrayList<>();
+
+        project = projectService.findOne(toSearch);
+        int i = 0;
+        for (User user : project.getUsers()) {
+            UserDTO userDTO = new UserDTO(user.getUserName(), user.getPassword(), user.getRol(), user.getSalary());
+            UserConHoras usC = new UserConHoras(user.getUserName(), user.getPassword(), user.getSalary(), user.getRol(), project.getHorasDeTrabajo()[i]);
+            userList.add(userDTO.modeltToDTO(user));
+            usersC.add(usC);
+            i++;
         }
-       
-            for (User user : project.getUsers()) {
-                System.out.println("WA" + user.getUserName());
-                System.out.println("WA2" + user.getRol());
-                System.out.println("WA3" + user.getSalary());
-                UserDTO userDTO = new UserDTO();
-                userList.add(userDTO.modeltToDTO(user));
-            }
-            for (InventoryItem inv : project.getItems()) {
-                InventoryItemDTO inventoryItemDTO = new InventoryItemDTO();
-                inventoryList.add(inventoryItemDTO.modelToDTO(inv));
-            }
-        
+        int j = 0;
+        for (InventoryItem inv : project.getItems()) {
+            InventoryItemDTO dto = new InventoryItemDTO(inv.getCode(), inv.getDescription(), inv.getMeasure(), inv.getQuantity());
+            InventoryCant toTable = new InventoryCant(project.getCantidadNecesaria()[j], dto.getCode(), dto.getDescription(), dto.getMeasure(), dto.getQuantity());
+            inventoryListConCantidad.add(toTable);
+            inventoryList.add(dto);
+            j++;
+        }
+        int total = 0;
+        for (UserConHoras user : usersC) {
+            total = total + user.getSalary() * user.getHoras();
+        }
+        for (InventoryCant inv : inventoryListConCantidad) {
+            total = total + inv.getCantidadNecesaria() * Integer.parseInt(inv.getMeasure());
+        }
+        this.precio = total;
     }
 
     //----------Cambios en usuarios
     public void deleteSelectedUsers() {
-        for (UserDTO dto : selectedUserList) {
+        for (UserConHoras dto : selectUC) {
             for (UserDTO userDTO : userList) {
-                if(dto.getUserName().equals(userDTO.getUserName())){
-                                userList.remove(userDTO);
-                            }
-            }
-            userList.remove(dto);
-        }
-    }
-
-    //----------Cambios en items-------------------------------------------
-    public void deleteSelectedItems() {
-        for (InventoryItemDTO dto : selectedInventoryList) {
-            for (InventoryItemDTO invdto : inventoryList) {
-                if(dto.getCode().equals(invdto.getCode())){
-                    inventoryList.remove(invdto);
+                if (dto.getUserName().equals(userDTO.getUserName())) {
+                    usersC.remove(dto);
+                    userList.remove(userDTO);
                 }
             }
         }
     }
-    
-    public void guardarCambios(){
-        ArrayList<User> usersFinal=new ArrayList<>();
-        ArrayList<InventoryItem> invFinal= new ArrayList<>();
-        
-        for (UserDTO user : userList) {
-                usersFinal.add(user.dtoToModel());
-            }
-            for (InventoryItemDTO inv : inventoryList) {
-                invFinal.add(inv.dtoToModel());
-        }
-        
-        ProjectDTO newPro = new ProjectDTO(code,invFinal,usersFinal,project.getFecha(),project.getDescripcion());
-    
-       projectService.update(project, newPro);
+
+    public int getPrecio() {
+        return precio;
     }
-    
-   
+
+    public void setPrecio(int precio) {
+        this.precio = precio;
+    }
+
+    //----------Cambios en items-------------------------------------------
+    public void deleteSelectedItems() {
+        for (InventoryCant dto : selectedInvConCant) {
+            for (InventoryItemDTO invdto : inventoryList) {
+                if (dto.getCode().equals(invdto.getCode())) {
+                    inventoryList.remove(invdto);
+                    inventoryListConCantidad.remove(dto);
+                }
+            }
+        }
+    }
+
+    public ArrayList<UserConHoras> getUsersC() {
+        return usersC;
+    }
+
+    public void setUsersC(ArrayList<UserConHoras> usersC) {
+        this.usersC = usersC;
+    }
+
+    public ArrayList<UserConHoras> getSelectUC() {
+        return selectUC;
+    }
+
+    public void setSelectUC(ArrayList<UserConHoras> selectUC) {
+        this.selectUC = selectUC;
+    }
+
+    public void guardarCambios() {
+        ArrayList<User> usersFinal = new ArrayList<>();
+        ArrayList<InventoryItem> invFinal = new ArrayList<>();
+
+        for (UserDTO user : userList) {
+            usersFinal.add(user.dtoToModel());
+        }
+        for (InventoryItemDTO inv : inventoryList) {
+            invFinal.add(inv.dtoToModel());
+        }
+
+        ProjectDTO newPro = new ProjectDTO(code, invFinal, usersFinal, project.getFecha(), project.getDescripcion(), project.getCantidadNecesaria(), project.getHorasDeTrabajo());
+
+        projectService.update(project, newPro);
+    }
+
+    public ArrayList<InventoryCant> getInventoryListConCantidad() {
+        return inventoryListConCantidad;
+    }
+
+    public void setInventoryListConCantidad(ArrayList<InventoryCant> inventoryListConCantidad) {
+        this.inventoryListConCantidad = inventoryListConCantidad;
+    }
+
     public void onCancel(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Edición cancelada");
         FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -147,14 +195,6 @@ public class SearchProjectController {
         this.selectedUserList = selectedUserList;
     }
 
-    public ArrayList<InventoryItemDTO> getSelectedInventoryList() {
-        return selectedInventoryList;
-    }
-
-    public void setSelectedInventoryList(ArrayList<InventoryItemDTO> selectedInventoryList) {
-        this.selectedInventoryList = selectedInventoryList;
-    }
-
     public UserDTO getSelectedUser() {
         return selectedUser;
     }
@@ -177,6 +217,18 @@ public class SearchProjectController {
 
     public void setInventoryList(ArrayList<InventoryItemDTO> inventoryList) {
         this.inventoryList = inventoryList;
+    }
+
+    public ArrayList<InventoryCant> getSelectedInvConCant() {
+        return selectedInvConCant;
+    }
+
+    public void setSelectedInvConCant(ArrayList<InventoryCant> selectedInvConCant) {
+        this.selectedInvConCant = selectedInvConCant;
+    }
+
+    public ProjectService getProjectService() {
+        return projectService;
     }
 
 }

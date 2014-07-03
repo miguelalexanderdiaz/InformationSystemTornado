@@ -34,7 +34,7 @@ public class ProjectServiceTest {
     ArrayList<InventoryItem> inventoryList = new ArrayList<>();
     ArrayList<User> userList = new ArrayList<>();
     ProjectService projectService;
-
+    int cantidad[];
     public ProjectServiceTest() {
     }
 
@@ -42,13 +42,14 @@ public class ProjectServiceTest {
     public void setUp() {
         ServiceFactory factory = ServiceFactory.getInstance();
         this.projectService = factory.getProjectService();
-
+        cantidad=new int[5];
         projectService.deleteAll();
         for (int i = 0; i < 4; i++) {
+            cantidad[i]=i+1;
             InventoryItem dto;
             User userDTO;
             userDTO = new User("nuser" + i, "nuser" + i, Rol.DISENADOR, i + 200);
-            dto = new InventoryItem(String.valueOf(i), "una descripcion" + i, "alguna medida" + i, i);
+            dto = new InventoryItem(String.valueOf(i), "una descripcion" + i, "1000" + i, i);
             inventoryList.add(dto);
             userList.add(userDTO);
         }
@@ -71,7 +72,10 @@ public class ProjectServiceTest {
         c.set(Calendar.SECOND, 0);
         Date d1 = c.getTime();
 
-        ProjectDTO test = new ProjectDTO("123", inventoryList, userList,d1.toString(), "dificil");
+        for (int i = 0; i < 4; i++) {
+            cantidad[i]=i+1;
+        }
+        ProjectDTO test = new ProjectDTO("123", inventoryList, userList,d1.toString(), "dificil",cantidad,cantidad);
         projectService.save(test);
     }
 
@@ -83,14 +87,14 @@ public class ProjectServiceTest {
         c.set(Calendar.SECOND, 0);
         Date d1 = c.getTime();
 
-        ProjectDTO test = new ProjectDTO("AK47", inventoryList, userList,d1.toString(), "dificil");
+        ProjectDTO test = new ProjectDTO("AK47", inventoryList, userList,d1.toString(), "dificil",cantidad,cantidad);
         projectService.save(test);
     }
     
     @Test
     public void testDelete() {
         boolean flag=true;
-        ProjectDTO test = new ProjectDTO("AK47", null, null,null, "dificil");
+        ProjectDTO test = new ProjectDTO("AK47", null, null,null, "dificil",null,null);
         projectService.save(test);
         projectService.delete(test);
         if(!projectService.findAll().isEmpty()){
